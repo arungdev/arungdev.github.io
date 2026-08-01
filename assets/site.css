@@ -668,42 +668,6 @@ ol.steps li::before {
 .callout strong { font-size: .93rem; letter-spacing: -.01em; }
 .callout p { margin: 0; font-size: .93rem; color: var(--muted); }
 
-/* ── FAQ accordion ────────────────────────────────────────── */
-.faq-group { margin-bottom: clamp(2.25rem, 4vw, 3rem); scroll-margin-top: 96px; }
-.faq-group > h2 { font-size: clamp(1.3rem, 2.3vw, 1.6rem); margin-bottom: 1.1rem; }
-.qa {
-  border: 1px solid var(--line);
-  border-radius: var(--r-sm);
-  background: var(--surface);
-  margin-bottom: .6rem;
-  overflow: hidden;
-  transition: border-color .18s var(--ease);
-}
-.qa[open] { border-color: var(--line-strong); }
-.qa summary {
-  cursor: pointer;
-  list-style: none;
-  padding: 1.05rem 3rem 1.05rem 1.25rem;
-  font-weight: 500;
-  font-size: 1rem;
-  letter-spacing: -.012em;
-  position: relative;
-}
-.qa summary::-webkit-details-marker { display: none; }
-.qa summary::after {
-  content: "";
-  position: absolute; right: 1.25rem; top: 1.45rem;
-  width: 9px; height: 9px;
-  border-right: 2px solid var(--muted);
-  border-bottom: 2px solid var(--muted);
-  transform: rotate(45deg);
-  transition: transform .2s var(--ease);
-}
-.qa[open] summary::after { transform: rotate(-135deg); }
-.qa summary:hover { color: var(--accent); }
-.qa .qa-body { padding: 0 1.25rem 1.15rem; }
-.qa .qa-body p { margin: 0; color: var(--muted); font-size: .95rem; max-width: var(--measure); }
-
 /* ── Changelog ────────────────────────────────────────────── */
 .release { position: relative; padding-left: 0; }
 .release + .release { margin-top: 3rem; border-top: 1px solid var(--line); padding-top: 3rem; }
