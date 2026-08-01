@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bank Statement Analytics — Arun G</title>
+<meta name="description" content="Parses HDFC, HDFC Credit Card and IOB statement exports — .txt, .csv and .pdf — into a categorized transaction store, then serves trends, budgets, bills, investments and monthly reports on top of it." />
+<link rel="canonical" href="https://arungdev.github.io/bankstatementanalytics/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://arungdev.github.io/bankstatementanalytics/" />
+<meta property="og:title" content="Bank Statement Analytics — Arun G" />
+<meta property="og:description" content="Parses HDFC, HDFC Credit Card and IOB statement exports — .txt, .csv and .pdf — into a categorized transaction store, then serves trends, budgets, bills, investments and monthly reports on top of it." />
+<meta property="og:image" content="https://arungdev.github.io/bankstatementanalytics/assets/og-cover.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="stylesheet" href="../assets/site.css" />
+<style>:root { --accent: #4F46E5; }
+@media (prefers-color-scheme: dark) { :root { --accent: #9994f0; } }</style>
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../index.html"><span class="dot"></span>arungdev</a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="../index.html#products" aria-current="page">Products</a>
+      <a href="../index.html#about">About</a>
+      <a href="https://github.com/arungdev">GitHub</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="kicker">Product · v1.0.0 · Windows 10/11 · 64-bit</p>
+    <h1>Your bank statements, turned into something you can actually read.</h1>
+    <p class="lede">Parses HDFC, HDFC Credit Card and IOB statement exports — .txt, .csv and .pdf — into a categorized transaction store, then serves trends, budgets, bills, investments and monthly reports on top of it.</p>
+    <div class="hero-actions">
+      <a class="btn btn-on-navy btn-lg btn-stacked" href="https://github.com/arungdev/BankStatementAnalytics/releases/latest">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1a1 1 0 0 1 1 1v6.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.42L7 8.59V2a1 1 0 0 1 1-1Zm-6 11a1 1 0 0 1 1 1v1h10v-1a1 1 0 1 1 2 0v1.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 14.5V13a1 1 0 0 1 1-1Z"/></svg><span>Download for Windows<span class="sub">Installer · v1.0.0 · 64-bit</span></span>
+      </a>
+      <a class="btn btn-lg" href="https://github.com/arungdev/BankStatementAnalytics" style="background:transparent;color:var(--on-navy);border-color:rgba(169,162,245,.4)"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>View source</a>
+    </div>
+  </div>
+</section>
+
+<main>
+  <section class="section">
+    <div class="wrap">
+      <header class="section-head" data-reveal>
+        <p class="eyebrow">What it does</p>
+        <h2>Built around the files your bank already gives you</h2>
+      </header>
+      <div class="features">
+        <div class="feature" data-reveal>
+          <div class="rule"></div>
+          <h3>Reads the files your bank already gives you</h3>
+          <p>No screen-scraping, no bank credentials, no third-party aggregator. Export a statement from net banking and drop it in.</p>
+        </div>
+        <div class="feature" data-reveal>
+          <div class="rule"></div>
+          <h3>Everything stays on your machine</h3>
+          <p>The app, the database and the statements all live on your own PC. Nothing is uploaded anywhere.</p>
+        </div>
+        <div class="feature" data-reveal>
+          <div class="rule"></div>
+          <h3>Understands credit cards properly</h3>
+          <p>Billing cycles, minimum due, payment dates and utilisation — modelled separately from savings accounts, because they behave differently.</p>
+        </div>
+        <div class="feature" data-reveal>
+          <div class="rule"></div>
+          <h3>Knows a transfer is not spending</h3>
+          <p>Money moved between your own accounts is detected and excluded from income and spend, so the totals mean something.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="download">
+    <div class="wrap">
+      <header class="section-head" data-reveal>
+        <p class="eyebrow">Download</p>
+        <h2>Install it</h2>
+        <p class="lede">Two ways to run it. Both are the same application — the installer just sets it up to start with Windows.</p>
+      </header>
+      <div class="dl-grid">
+        <div class="dl-card" data-reveal>
+          <a class="btn btn-primary btn-stacked" href="https://github.com/arungdev/BankStatementAnalytics/releases/latest">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1a1 1 0 0 1 1 1v6.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.42L7 8.59V2a1 1 0 0 1 1-1Zm-6 11a1 1 0 0 1 1 1v1h10v-1a1 1 0 1 1 2 0v1.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 14.5V13a1 1 0 0 1 1-1Z"/></svg><span>Download for Windows<span class="sub">Installer · v1.0.0 · 64-bit</span></span>
+          </a>
+          <p>Installs to Program Files and registers a background service, so the app is running whenever your PC is. Opens at localhost:5080 from the desktop shortcut. Needs administrator rights to install.</p>
+        </div>
+        <div class="dl-card" data-reveal>
+          <a class="btn btn-ghost btn-stacked" href="https://github.com/arungdev/BankStatementAnalytics/releases/latest">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1a1 1 0 0 1 1 1v6.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.42L7 8.59V2a1 1 0 0 1 1-1Zm-6 11a1 1 0 0 1 1 1v1h10v-1a1 1 0 1 1 2 0v1.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 14.5V13a1 1 0 0 1 1-1Z"/></svg><span>Portable build<span class="sub">ZIP · no installer</span></span>
+          </a>
+          <p>Unzip and run the executable directly. Nothing is written outside the folder you extract it to. No service is registered, so the app runs only while the window is open.</p>
+        </div>
+      </div>
+
+      <h3 style="margin:2.75rem 0 1rem;font-size:1.05rem;font-weight:680">System requirements</h3>
+      <div class="table-scroll">
+        <table class="req">
+          <tbody>
+          <tr><th scope="row">Operating system</th><td>Windows 10 or 11, 64-bit</td></tr>
+          <tr><th scope="row">Disk space</th><td>About 400 MB installed</td></tr>
+          <tr><th scope="row">Database</th><td>None to install — PostgreSQL 18 is bundled and runs embedded</td></tr>
+          <tr><th scope="row">Runtime</th><td>None — the .NET runtime is built into the executable</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="note" style="margin-top:2rem">
+        Windows SmartScreen may warn on first run because the build is not code-signed.
+        Choose "More info" then "Run anyway" if you trust the source.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="tour">
+    <div class="wrap">
+      <header class="section-head" data-reveal>
+        <p class="eyebrow">Screens</p>
+        <h2>Every screen, at full size</h2>
+        <p class="lede">Click any screenshot to enlarge it.</p>
+      </header>
+      <nav class="tour-nav" aria-label="Tour sections"><a href="#dashboard">Dashboard</a><a href="#activity">Activity</a><a href="#planning">Planning</a><a href="#card">Credit card</a><a href="#import">Import &amp; setup</a><a href="#dark">Dark mode</a></nav>
+    </div>
+  </section>
+
+    <section class="section" id="dashboard" style="padding-top:clamp(2rem,4vw,3rem)">
+      <div class="wrap">
+        <header class="section-head" data-reveal>
+          <p class="eyebrow">Dashboard</p>
+          <h2>See the whole picture</h2>
+          <p class="lede">Every figure on these pages is derived from parsed statement rows — nothing is entered by hand.</p>
+        </header>
+      <figure class="plate" data-reveal>
+        <figcaption class="plate-head">
+          <span class="plate-no">01</span>
+          <div class="plate-text">
+            <h3>Overview</h3>
+            <p>Income, spend and net flow for the selected account, a six-month cash-flow curve, top merchants by value and a paged activity feed.</p>
+          </div>
+        </figcaption>
+        <button class="shot" type="button" aria-label="Enlarge screenshot: Overview">
+          <img src="assets/01-overview.webp" alt="Overview screen of Bank Statement Analytics" loading="lazy" decoding="async" width="1800" height="1125" />
+        </button>
+      </figure>
+      <figure class="plate" data-reveal>
+        <figcaption class="plate-head">
+          <span class="plate-no">02</span>
+          <div class="plate-text">
+            <h3>Trends</h3>
+            <p>Income against spend over time, switchable between daily, weekly and monthly buckets. Each bar drills through to the transactions behind it.</p>
+          </div>
+        </figcaption>
+        <button class="shot" type="button" aria-label="Enlarge screenshot: Trends">
+          <img src="assets/02-trends.webp" alt="Trends screen of Bank Statement Analytics" loading="lazy" decoding="async" width="1800" height="1125" />
+        </button>
+      </figure>
+      <figure class="plate" data-reveal>
+        <figcaption class="plate-head">
+          <span class="plate-no">03</span>
+          <div class="plate-text">
+            <h3>Spending insights</h3>
+            <p>Spend grouped by category, merchant or tag — bar chart, share donut and a full ranked breakdown that totals to the same number.</p>
+          </div>
+        </figcaption>
+        <button class="shot" type="button" aria-label="Enlarge screenshot: Spending insights">
+          <img src="assets/03-insights.webp" alt="Spending insights screen of Bank Statement Analytics" loading="lazy" decoding="async" width="1800" height="1125" />
+        </button>
+      </figure>
+      <figure class="plate" data-reveal>
+        <figcaption class="plate-head">
+          <span class="plate-no">04</span>
+          <div class="plate-text">
+            <h3>Monthly report</h3>
+            <p>A closeable month: opening and closing balance, spend by category, top merchants and deposits — exportable to PDF.</p>
+          </div>
+        </figcaption>
+        <button class="shot" type="button" aria-label="Enlarge screenshot: Monthly report">
+          <img src="assets/10-reports.webp" alt="Monthly report screen of Bank Statement Analytics" loading="lazy" decoding="async" width="1800" height="1125" />
+        </button>
+      </figure>
+      </div>
+    </section>
+
+    <section class="section" id="activity" style="padding-top:clamp(2rem,4vw,3rem)">
+      <div class="wrap">
+        <header class="section-head" data-reveal>
+          <p class="eyebrow">Activity</p>
+          <h2>Down to the individual row</h2>
+          <p class="lede">The ledger, and the entities the app infers from it.</p>
+        </header>
+      <figure class="plate" data-reveal>
+        <figcaption class="plate-head">
+          <span class="plate-no">05</span>
+          <div class="plate-text">
+            <h3>Transactions</h3>
+            <p>The full ledger with date-range, search and category filters, inline recategorization and per-transaction overrides.</p>
+          </div>
+        </figcaption>
+        <button class="shot" type="button" aria-label="Enlarge screenshot: Transactions">
+          <img src="assets/04-transactions.webp" alt="Transactions screen of Bank Statement Analytics" loading="lazy" decoding="async" width="1800" height="1125" />
+        </button>
+      </figure>
+      <figure class="plate" data-reveal>
+        <figcaption class="plate-head">
+          <span class="plate-no">06</span>
+          <div class="plate-text">
+            <h3>Merchants</h3>
+            <p>Counterparties resolved from raw UPI and narration strings, each with a default category, linked identifiers and lifetime spend. Bulk-editable.</p>
+          </div>
+        </figcaption>
+        <button class="shot" type="button" aria-label="Enlarge screenshot: Merchants">
+          <img src="assets/05-merchants.webp" alt="Merchants screen of Bank Statement Analytics" loading="lazy" decoding="async" width="1800" height="1125" />
+        </button>
+      </figure>
+      <figure class="plate" data-reveal>
+        <figcaption class="plate-head">
+          <span class="plate-no">07</span>
+          <div class="plate-text">
+            <h3>Transfers</h3>
+            <p>Self-transfers detected by matching a debit in one account to an equal credit in another within a few days — marking a pair removes it from income and spend, so moving your own money never counts as either.</p>
+          </div>
+        </figcaption>
+        <button class="shot" type="button" aria-label="Enlarge screenshot: Transfers">
+          <img src="assets/06-transfers.webp" alt="Transfers screen of Bank Statement Analytics" loading="lazy" decoding="async" width="1800" height="1125" />
+        </button>
+      </figure>
+      </div>
+    </section>
+
+    <section class="section" id="planning" style="padding-top:clamp(2rem,4vw,3rem)">
+      <div class="wrap">
+        <header class="section-head" data-reveal>
+          <p class="eyebrow">Planning</p>
+          <h2>Forward-looking, not just historical</h2>
+          <p class="lede">Commitments the app tracks against what the statements actually show.</p>
+        </header>
+      <figure class="plate" data-reveal>
+        <figcaption class="plate-head">
+          <span class="plate-no">08</span>
+          <div class="plate-text">
+            <h3>Budgets</h3>
+            <p>Recurring monthly limits per category, measured against real spend in any chosen month. Over-budget states are colour-coded and stated in rupees, not just percentages.</p>
+          </div>
+        </figcaption>
+        <button class="shot" type="button" aria-label="Enlarge screenshot: Budgets">
+          <img src="assets/08-budgets.webp" alt="Budgets screen of Bank Statement Analytics" loading="lazy" decoding="async" width="1800" height="1125" />
+        </button>
+      </figure>
+      <figure class="plate" data-reveal>
+        <figcaption class="plate-head">
+          <span class="plate-no">09</span>
+          <div class="plate-text">
+            <h3>Bills &amp; reminders</h3>
+            <p>Recurring bills with due-soon severity, monthly totals and paid-this-cycle tracking, plus opt-in desktop reminders.</p>
+          </div>
+        </figcaption>
+        <button class="shot" type="button" aria-label="Enlarge screenshot: Bills &amp; reminders">
+          <img src="assets/07-bills.webp" alt="Bills &amp; reminders screen of Bank Statement Analytics" loading="lazy" decoding="async" width="1800" height="1125" />
+        </button>
+      </figure>
+      <figure class="plate" data-reveal>
+        <figcaption class="plate-head">
+          <span class="plate-no">10</span>
+          <div class="plate-text">
+            <h3>Investments</h3>
+            <p>Recurring and fixed deposits picked out of the statement narration — contributions paid so far, next expected instalment, and matured returns.</p>
+          </div>
+        </figcaption>
+        <button class="shot" type="button" aria-label="Enlarge screenshot: Investments">
+          <img src="assets/09-investments.webp" alt="Investments screen of Bank Statement Analytics" loading="lazy" decoding="async" width="1800" height="1125" />
+        </button>
+      </figure>
+      </div>
+    </section>
+
+    <section class="section" id="card" style="padding-top:clamp(2rem,4vw,3rem)">
+      <div class="wrap">
+        <header class="section-head" data-reveal>
+          <p class="eyebrow">Credit card</p>
+          <h2>Cards get their own model</h2>
+          <p class="lede">A credit card statement is not a bank statement — billing cycles, a minimum due and a limit have no equivalent in a savings account, so these surfaces exist only for card accounts.</p>
+        </header>
+      <figure class="plate" data-reveal>
+        <figcaption class="plate-head">
+          <span class="plate-no">11</span>
+          <div class="plate-text">
+            <h3>Card overview</h3>
+            <p>Total and minimum due, payment due date, statement period, reward balance, credit utilisation against the limit, and spend per billing cycle.</p>
+          </div>
+        </figcaption>
+        <button class="shot" type="button" aria-label="Enlarge screenshot: Card overview">
+          <img src="assets/13-credit-card.webp" alt="Card overview screen of Bank Statement Analytics" loading="lazy" decoding="async" width="1800" height="1125" />
+        </button>
+      </figure>
+      <figure class="plate" data-reveal>
+        <figcaption class="plate-head">
+          <span class="plate-no">12</span>
+          <div class="plate-text">
+            <h3>Card report</h3>
+            <p>The same monthly report shape, re-anchored to the billing cycle rather than the calendar month.</p>
+          </div>
+        </figcaption>
+        <button class="shot" type="button" aria-label="Enlarge screenshot: Card report">
+          <img src="assets/14-cc-report.webp" alt="Card report screen of Bank Statement Analytics" loading="lazy" decoding="async" width="1800" height="1125" />
+        </button>
+      </figure>
+      </div>
+    </section>
+
+    <section class="section" id="import" style="padding-top:clamp(2rem,4vw,3rem)">
+      <div class="wrap">
+        <header class="section-head" data-reveal>
+          <p class="eyebrow">Import &amp; setup</p>
+          <h2>Getting data in</h2>
+          <p class="lede">Three banks, four file formats. Parsers are registered per bank and extension, with content-sniffing as a fallback when the pairing is unfamiliar.</p>
+        </header>
+      <figure class="plate" data-reveal>
+        <figcaption class="plate-head">
+          <span class="plate-no">13</span>
+          <div class="plate-text">
+            <h3>Upload a statement</h3>
+            <p>Drag-and-drop import for HDFC, HDFC Credit Card and IOB in .txt, .csv and .pdf. Re-uploading is safe — rows are deduplicated on bank reference — and any import can be reverted whole.</p>
+          </div>
+        </figcaption>
+        <button class="shot" type="button" aria-label="Enlarge screenshot: Upload a statement">
+          <img src="assets/11-upload.webp" alt="Upload a statement screen of Bank Statement Analytics" loading="lazy" decoding="async" width="1800" height="1125" />
+        </button>
+      </figure>
+      <figure class="plate" data-reveal>
+        <figcaption class="plate-head">
+          <span class="plate-no">14</span>
+          <div class="plate-text">
+            <h3>Settings</h3>
+            <p>Linked accounts with live balances, category management, reminder and privacy preferences, appearance and profile.</p>
+          </div>
+        </figcaption>
+        <button class="shot" type="button" aria-label="Enlarge screenshot: Settings">
+          <img src="assets/12-settings.webp" alt="Settings screen of Bank Statement Analytics" loading="lazy" decoding="async" width="1800" height="1125" />
+        </button>
+      </figure>
+      <figure class="plate" data-reveal>
+        <figcaption class="plate-head">
+          <span class="plate-no">15</span>
+          <div class="plate-text">
+            <h3>First-run guide</h3>
+            <p>A short guide on first login, reopenable any time from the header.</p>
+          </div>
+        </figcaption>
+        <button class="shot" type="button" aria-label="Enlarge screenshot: First-run guide">
+          <img src="assets/00b-onboarding.webp" alt="First-run guide screen of Bank Statement Analytics" loading="lazy" decoding="async" width="1800" height="1125" />
+        </button>
+      </figure>
+      <figure class="plate" data-reveal>
+        <figcaption class="plate-head">
+          <span class="plate-no">16</span>
+          <div class="plate-text">
+            <h3>Sign in</h3>
+            <p>Cookie-based auth with lockout after repeated failures. First run creates the admin account.</p>
+          </div>
+        </figcaption>
+        <button class="shot" type="button" aria-label="Enlarge screenshot: Sign in">
+          <img src="assets/00-login.webp" alt="Sign in screen of Bank Statement Analytics" loading="lazy" decoding="async" width="1800" height="1125" />
+        </button>
+      </figure>
+      </div>
+    </section>
+
+    <section class="section" id="dark" style="padding-top:clamp(2rem,4vw,3rem)">
+      <div class="wrap">
+        <header class="section-head" data-reveal>
+          <p class="eyebrow">Dark mode</p>
+          <h2>Both themes, equally</h2>
+          <p class="lede">Themes are token-level — chart colours are read from the same CSS custom properties as the rest of the UI, so plots recolour with the page instead of staying stuck in a light-mode palette.</p>
+        </header>
+      <figure class="plate" data-reveal>
+        <figcaption class="plate-head">
+          <span class="plate-no">17</span>
+          <div class="plate-text">
+            <h3>Overview · dark</h3>
+            
+          </div>
+        </figcaption>
+        <button class="shot" type="button" aria-label="Enlarge screenshot: Overview · dark">
+          <img src="assets/15-dark-overview.webp" alt="Overview · dark screen of Bank Statement Analytics" loading="lazy" decoding="async" width="1800" height="1125" />
+        </button>
+      </figure>
+      <figure class="plate" data-reveal>
+        <figcaption class="plate-head">
+          <span class="plate-no">18</span>
+          <div class="plate-text">
+            <h3>Insights · dark</h3>
+            
+          </div>
+        </figcaption>
+        <button class="shot" type="button" aria-label="Enlarge screenshot: Insights · dark">
+          <img src="assets/16-dark-insights.webp" alt="Insights · dark screen of Bank Statement Analytics" loading="lazy" decoding="async" width="1800" height="1125" />
+        </button>
+      </figure>
+      <figure class="plate" data-reveal>
+        <figcaption class="plate-head">
+          <span class="plate-no">19</span>
+          <div class="plate-text">
+            <h3>Trends · dark</h3>
+            
+          </div>
+        </figcaption>
+        <button class="shot" type="button" aria-label="Enlarge screenshot: Trends · dark">
+          <img src="assets/17-dark-trends.webp" alt="Trends · dark screen of Bank Statement Analytics" loading="lazy" decoding="async" width="1800" height="1125" />
+        </button>
+      </figure>
+      </div>
+    </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <p class="note">
+        Screenshots come from a throwaway instance seeded with real statement files.
+        Account holder, account numbers and counterparty names are substituted demo values.
+      </p>
+      <ul class="chips" style="margin-top:2rem"><li>ASP.NET Core · net10.0</li><li>React 19 + Vite</li><li>PostgreSQL</li><li>NHibernate</li><li>Chart.js / Recharts</li><li>PDFsharp</li></ul>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p>Arun G — Independent software developer. Software built to run on your own machine.</p>
+    <a class="btn btn-ghost" href="https://github.com/arungdev"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>github.com/arungdev</a>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged screenshot">
+  <img id="lightbox-img" alt="" />
+  <span class="lightbox-hint">Click anywhere or press Esc to close</span>
+</div>
+<script>
+(function () {
+  var box = document.getElementById('lightbox');
+  var boxImg = document.getElementById('lightbox-img');
+  var last = null;
+  document.querySelectorAll('.shot').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var img = btn.querySelector('img');
+      boxImg.src = img.src; boxImg.alt = img.alt;
+      box.classList.add('open'); last = btn;
+    });
+  });
+  function close() {
+    box.classList.remove('open'); boxImg.removeAttribute('src');
+    if (last) { last.focus(); last = null; }
+  }
+  box.addEventListener('click', close);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && box.classList.contains('open')) close();
+  });
+})();
+</script>
+
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var targets = document.querySelectorAll('[data-reveal]');
+  if (!reduce && 'IntersectionObserver' in window) {
+    targets.forEach(function (el) { el.classList.add('reveal'); });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    targets.forEach(function (el) { io.observe(el); });
+  }
+})();
+</script>
+</body>
+</html>

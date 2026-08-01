@@ -3,440 +3,120 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>BankStatementAnalytics — Feature Tour</title>
-<meta name="description" content="A self-hosted personal finance app that parses HDFC, HDFC Credit Card and IOB statement exports into categorized analytics — trends, budgets, bills, investments and monthly reports." />
+<title>Arun G — Self-hosted desktop software</title>
+<meta name="description" content="I build self-hosted Windows desktop software — applications that install and run entirely on your own machine, with no account to create and no data leaving it." />
 <link rel="canonical" href="https://arungdev.github.io/" />
-
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://arungdev.github.io/" />
-<meta property="og:title" content="BankStatementAnalytics — Feature Tour" />
-<meta property="og:description" content="Bank statement exports turned into trends, budgets, bills and monthly reports. ASP.NET Core + React, self-hosted." />
-<meta property="og:image" content="https://arungdev.github.io/assets/og-cover.png" />
+<meta property="og:title" content="Arun G — Self-hosted desktop software" />
+<meta property="og:description" content="I build self-hosted Windows desktop software — applications that install and run entirely on your own machine, with no account to create and no data leaving it." />
+<meta property="og:image" content="https://arungdev.github.io/assets/og-home.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
+<link rel="stylesheet" href="assets/site.css" />
 
-<style>
-  :root {
-    --ground:#FBFAFD; --surface:#FFFFFF; --ink:#14132B; --muted:#6B6885; --line:#E5E2EF;
-    --indigo:#4F46E5; --navy:#221F55; --navy-deep:#14122F;
-    --shadow:0 1px 2px rgba(20,19,43,.05), 0 12px 32px -12px rgba(20,19,43,.18);
-    --display: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    --mono: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
-    --measure:62ch; --pad:clamp(1.25rem,4vw,3.5rem); --wrap:1240px;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --ground:#0D0C18; --surface:#16152A; --ink:#EDEBF7; --muted:#9A96B8; --line:#2A2843;
-      --indigo:#8B84F7; --navy:#191735; --navy-deep:#0A0914;
-      --shadow:0 1px 2px rgba(0,0,0,.4), 0 16px 40px -16px rgba(0,0,0,.7);
-    }
-  }
-
-  * { box-sizing:border-box; }
-  html { scroll-behavior:smooth; }
-  body { margin:0; background:var(--ground); color:var(--ink); font-family:var(--display);
-         font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased; }
-  img { max-width:100%; display:block; }
-  a { color:var(--indigo); }
-
-  .mast { background:
-      radial-gradient(120% 140% at 12% 0%, rgba(139,132,247,.22) 0%, transparent 55%),
-      linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
-    color:#F2F0FF; padding:clamp(3rem,9vw,6.5rem) var(--pad) clamp(2.5rem,6vw,4rem);
-    border-bottom:1px solid var(--line); }
-  .mast-inner { max-width:var(--wrap); margin:0 auto; }
-  .kicker { font-family:var(--mono); font-size:.72rem; letter-spacing:.18em; text-transform:uppercase;
-            color:#A9A2F5; margin:0 0 1.25rem; }
-  .mast h1 { font-size:clamp(2.1rem,6.2vw,4.1rem); line-height:1.02; letter-spacing:-.035em;
-             font-weight:800; margin:0 0 1.1rem; text-wrap:balance; max-width:20ch; }
-  .mast h1 em { font-style:normal; color:#A9A2F5; }
-  .mast .lede { font-size:clamp(1rem,1.9vw,1.2rem); color:#C3BFE6; max-width:var(--measure); margin:0 0 2rem; }
-  .stack { list-style:none; display:flex; flex-wrap:wrap; gap:.5rem; padding:0; margin:0 0 2.25rem; }
-  .stack li { font-family:var(--mono); font-size:.72rem; letter-spacing:.04em; padding:.38rem .7rem;
-              border:1px solid rgba(169,162,245,.32); border-radius:2px; color:#CFCBF0; }
-  .cta { display:inline-flex; align-items:center; gap:.6rem; background:#F2F0FF; color:#1B1940;
-         font-weight:650; font-size:.95rem; text-decoration:none; padding:.85rem 1.4rem; border-radius:3px;
-         transition:transform .15s ease, box-shadow .15s ease; }
-  .cta:hover, .cta:focus-visible { transform:translateY(-2px); box-shadow:0 10px 24px -8px rgba(0,0,0,.55); }
-  .cta svg { width:18px; height:18px; fill:currentColor; }
-
-  .nav { position:sticky; top:0; z-index:10; background:color-mix(in srgb, var(--ground) 88%, transparent);
-         backdrop-filter:blur(10px); border-bottom:1px solid var(--line); overflow-x:auto; }
-  .nav-inner { max-width:var(--wrap); margin:0 auto; padding:0 var(--pad); display:flex; gap:1.5rem; white-space:nowrap; }
-  .nav a { font-family:var(--mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase;
-           color:var(--muted); text-decoration:none; padding:1rem 0; border-bottom:2px solid transparent; }
-  .nav a:hover, .nav a:focus-visible { color:var(--ink); border-bottom-color:var(--indigo); }
-
-  main { max-width:var(--wrap); margin:0 auto; padding:0 var(--pad) 5rem; }
-  .section { padding-top:clamp(3.5rem,8vw,6rem); scroll-margin-top:4rem; }
-  .section-head { margin-bottom:clamp(2rem,4vw,3rem); }
-  .eyebrow { font-family:var(--mono); font-size:.72rem; letter-spacing:.18em; text-transform:uppercase;
-             color:var(--indigo); margin:0 0 .75rem; }
-  .section-head h2 { font-size:clamp(1.5rem,3.4vw,2.25rem); letter-spacing:-.025em; line-height:1.1;
-                     font-weight:750; margin:0 0 .85rem; text-wrap:balance; }
-  .lede { color:var(--muted); max-width:var(--measure); margin:0; }
-
-  .plate { margin:0 0 clamp(2.5rem,5vw,4rem); }
-  .plate-head { display:flex; gap:1rem; align-items:baseline; margin-bottom:1rem; }
-  .plate-no { font-family:var(--mono); font-size:.78rem; color:var(--indigo);
-              font-variant-numeric:tabular-nums; padding-top:.15rem; }
-  .plate-text h3 { font-size:1.1rem; font-weight:680; letter-spacing:-.01em; margin:0 0 .3rem; }
-  .plate-text p { color:var(--muted); margin:0; font-size:.95rem; max-width:var(--measure); }
-
-  .shot { display:block; width:100%; padding:0; border:1px solid var(--line); border-radius:6px;
-          overflow:hidden; background:var(--surface); box-shadow:var(--shadow); cursor:zoom-in;
-          transition:transform .2s ease, box-shadow .2s ease; }
-  .shot:hover, .shot:focus-visible { transform:translateY(-3px);
-          box-shadow:0 1px 2px rgba(20,19,43,.06), 0 22px 48px -16px rgba(20,19,43,.3); }
-  .shot:focus-visible { outline:2px solid var(--indigo); outline-offset:3px; }
-
-  .reveal { opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
-  .reveal.in { opacity:1; transform:none; }
-
-  .lightbox { position:fixed; inset:0; z-index:100; background:rgba(8,7,18,.93); display:none;
-              align-items:center; justify-content:center; padding:1.5rem; cursor:zoom-out; }
-  .lightbox.open { display:flex; }
-  .lightbox img { max-width:100%; max-height:100%; object-fit:contain; border-radius:4px; }
-  .lightbox-hint { position:fixed; bottom:1.25rem; left:50%; transform:translateX(-50%);
-                   font-family:var(--mono); font-size:.7rem; letter-spacing:.12em; text-transform:uppercase;
-                   color:rgba(255,255,255,.6); }
-
-  .foot { border-top:1px solid var(--line); padding:clamp(2.5rem,6vw,4rem) var(--pad); background:var(--surface); }
-  .foot-inner { max-width:var(--wrap); margin:0 auto; display:flex; flex-wrap:wrap; gap:1.5rem;
-                align-items:center; justify-content:space-between; }
-  .foot p { margin:0; color:var(--muted); font-size:.9rem; max-width:var(--measure); }
-  .foot .cta { background:var(--indigo); color:#fff; }
-
-  .note { font-family:var(--mono); font-size:.72rem; line-height:1.7; color:var(--muted);
-          border-left:2px solid var(--line); padding-left:1rem; margin-top:2.5rem; max-width:var(--measure); }
-
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior:auto; }
-    * { animation:none !important; transition:none !important; }
-    .reveal { opacity:1; transform:none; }
-  }
-</style>
 </head>
 <body>
-
-<header class="mast">
-  <div class="mast-inner">
-    <p class="kicker">Self-hosted · single-file deploy</p>
-    <h1>Your bank statements, turned into <em>something you can actually read</em>.</h1>
-    <p class="lede">
-      BankStatementAnalytics parses HDFC, HDFC Credit Card and IOB statement exports —
-      .txt, .csv and .pdf — into a categorized transaction store, then serves trends,
-      budgets, bills and monthly reports on top of it. Runs entirely on your own machine.
-    </p>
-    <ul class="stack"><li>ASP.NET Core · net10.0</li><li>React 19 + Vite</li><li>PostgreSQL</li><li>NHibernate</li><li>Chart.js / Recharts</li><li>PDFsharp</li></ul>
-    <a class="cta" href="https://github.com/arungdev/BankStatementAnalytics"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>View the source on GitHub</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html"><span class="dot"></span>arungdev</a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="index.html#products" aria-current="page">Products</a>
+      <a href="index.html#about">About</a>
+      <a href="https://github.com/arungdev">GitHub</a>
+    </nav>
   </div>
 </header>
 
-<nav class="nav" aria-label="Sections">
-  <div class="nav-inner"><a href="#dashboard">Dashboard</a><a href="#activity">Activity</a><a href="#planning">Planning</a><a href="#card">Credit card</a><a href="#import">Import &amp; setup</a><a href="#dark">Dark mode</a></div>
-</nav>
+<section class="hero">
+  <div class="wrap">
+    <p class="kicker">Independent software developer</p>
+    <h1>Software that runs on <em>your machine</em>, not someone else's.</h1>
+    <p class="lede">I build self-hosted Windows desktop software — applications that install and run entirely on your own machine, with no account to create and no data leaving it.</p>
+    <div class="hero-actions">
+      <a class="btn btn-on-navy btn-lg" href="#products"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1a1 1 0 0 1 1 1v6.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.42L7 8.59V2a1 1 0 0 1 1-1Zm-6 11a1 1 0 0 1 1 1v1h10v-1a1 1 0 1 1 2 0v1.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 14.5V13a1 1 0 0 1 1-1Z"/></svg>Browse products</a>
+      <a class="btn btn-on-navy btn-lg" href="https://github.com/arungdev" style="background:transparent;color:var(--on-navy);border-color:rgba(169,162,245,.4)"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>GitHub</a>
+    </div>
+  </div>
+</section>
 
 <main>
-    <section class="section" id="dashboard">
-      <header class="section-head">
-        <p class="eyebrow">Dashboard</p>
-        <h2>See the whole picture</h2>
-        <p class="lede">Every figure on these pages is derived from parsed statement rows — nothing is entered by hand.</p>
+  <section class="section" id="products">
+    <div class="wrap">
+      <header class="section-head" data-reveal>
+        <p class="eyebrow">Products</p>
+        <h2>What's available today</h2>
+        <p class="lede">Each one installs and runs locally. No accounts, no subscriptions, no data leaving your PC.</p>
       </header>
-      <figure class="plate">
-        <figcaption class="plate-head">
-          <span class="plate-no">01</span>
-          <div class="plate-text">
-            <h3>Overview</h3>
-            <p>Income, spend and net flow for the selected account, a six-month cash-flow curve, top merchants by value and a paged activity feed.</p>
-          </div>
-        </figcaption>
-        <button class="shot" type="button" aria-label="Enlarge screenshot: Overview">
-          <img src="assets/01-overview.webp" alt="Overview screen of the app" loading="lazy" decoding="async" width="1800" height="1125" />
-        </button>
-      </figure>
-      <figure class="plate">
-        <figcaption class="plate-head">
-          <span class="plate-no">02</span>
-          <div class="plate-text">
-            <h3>Trends</h3>
-            <p>Income against spend over time, switchable between daily, weekly and monthly buckets. Each bar drills through to the transactions behind it.</p>
-          </div>
-        </figcaption>
-        <button class="shot" type="button" aria-label="Enlarge screenshot: Trends">
-          <img src="assets/02-trends.webp" alt="Trends screen of the app" loading="lazy" decoding="async" width="1800" height="1125" />
-        </button>
-      </figure>
-      <figure class="plate">
-        <figcaption class="plate-head">
-          <span class="plate-no">03</span>
-          <div class="plate-text">
-            <h3>Spending insights</h3>
-            <p>Spend grouped by category, merchant or tag — bar chart, share donut and a full ranked breakdown that totals to the same number.</p>
-          </div>
-        </figcaption>
-        <button class="shot" type="button" aria-label="Enlarge screenshot: Spending insights">
-          <img src="assets/03-insights.webp" alt="Spending insights screen of the app" loading="lazy" decoding="async" width="1800" height="1125" />
-        </button>
-      </figure>
-      <figure class="plate">
-        <figcaption class="plate-head">
-          <span class="plate-no">04</span>
-          <div class="plate-text">
-            <h3>Monthly report</h3>
-            <p>A closeable month: opening and closing balance, spend by category, top merchants and deposits — exportable to PDF.</p>
-          </div>
-        </figcaption>
-        <button class="shot" type="button" aria-label="Enlarge screenshot: Monthly report">
-          <img src="assets/10-reports.webp" alt="Monthly report screen of the app" loading="lazy" decoding="async" width="1800" height="1125" />
-        </button>
-      </figure>
-    </section>
+      <div class="product-grid">
 
-    <section class="section" id="activity">
-      <header class="section-head">
-        <p class="eyebrow">Activity</p>
-        <h2>Down to the individual row</h2>
-        <p class="lede">The ledger, and the entities the app infers from it.</p>
+        <article class="product-card" data-reveal>
+          <a class="thumb" href="bankstatementanalytics/index.html" aria-label="Bank Statement Analytics">
+            <img src="bankstatementanalytics/assets/01-overview.webp" alt="Bank Statement Analytics dashboard" loading="lazy" decoding="async" width="1800" height="1125" />
+          </a>
+          <div class="body">
+            <div class="meta-row">
+              <span class="badge">Shipped · v1.0.0</span>
+              <span class="badge badge-soon">Windows 10/11 · 64-bit</span>
+            </div>
+            <h3>Bank Statement Analytics</h3>
+            <p>Parses HDFC, HDFC Credit Card and IOB statement exports — .txt, .csv and .pdf — into a categorized transaction store, then serves trends, budgets, bills, investments and monthly reports on top of it.</p>
+            <div class="card-actions">
+              <a class="btn btn-primary" href="https://github.com/arungdev/BankStatementAnalytics/releases/latest"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1a1 1 0 0 1 1 1v6.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.42L7 8.59V2a1 1 0 0 1 1-1Zm-6 11a1 1 0 0 1 1 1v1h10v-1a1 1 0 1 1 2 0v1.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 14.5V13a1 1 0 0 1 1-1Z"/></svg>Download</a>
+              <a class="btn btn-ghost" href="bankstatementanalytics/index.html">Learn more</a>
+            </div>
+          </div>
+        </article>
+        <article class="product-card product-card-soon" data-reveal>
+          <div class="body" style="padding:0">
+            <span class="badge badge-soon">In development</span>
+            <h3>More on the way</h3>
+            <p>Further products are being built in the same shape — self-hosted, single-install, Windows-first. This page is where they'll land.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="about">
+    <div class="wrap-narrow">
+      <header class="section-head" data-reveal>
+        <p class="eyebrow">About</p>
+        <h2>Why local-first</h2>
       </header>
-      <figure class="plate">
-        <figcaption class="plate-head">
-          <span class="plate-no">05</span>
-          <div class="plate-text">
-            <h3>Transactions</h3>
-            <p>The full ledger with date-range, search and category filters, inline recategorization and per-transaction overrides.</p>
-          </div>
-        </figcaption>
-        <button class="shot" type="button" aria-label="Enlarge screenshot: Transactions">
-          <img src="assets/04-transactions.webp" alt="Transactions screen of the app" loading="lazy" decoding="async" width="1800" height="1125" />
-        </button>
-      </figure>
-      <figure class="plate">
-        <figcaption class="plate-head">
-          <span class="plate-no">06</span>
-          <div class="plate-text">
-            <h3>Merchants</h3>
-            <p>Counterparties resolved from raw UPI and narration strings, each with a default category, linked identifiers and lifetime spend. Bulk-editable.</p>
-          </div>
-        </figcaption>
-        <button class="shot" type="button" aria-label="Enlarge screenshot: Merchants">
-          <img src="assets/05-merchants.webp" alt="Merchants screen of the app" loading="lazy" decoding="async" width="1800" height="1125" />
-        </button>
-      </figure>
-      <figure class="plate">
-        <figcaption class="plate-head">
-          <span class="plate-no">07</span>
-          <div class="plate-text">
-            <h3>Transfers</h3>
-            <p>Self-transfers detected by matching a debit in one account to an equal credit in another within a few days — marking a pair removes it from income and spend, so moving your own money never counts as either.</p>
-          </div>
-        </figcaption>
-        <button class="shot" type="button" aria-label="Enlarge screenshot: Transfers">
-          <img src="assets/06-transfers.webp" alt="Transfers screen of the app" loading="lazy" decoding="async" width="1800" height="1125" />
-        </button>
-      </figure>
-    </section>
-
-    <section class="section" id="planning">
-      <header class="section-head">
-        <p class="eyebrow">Planning</p>
-        <h2>Forward-looking, not just historical</h2>
-        <p class="lede">Commitments the app tracks against what the statements actually show.</p>
-      </header>
-      <figure class="plate">
-        <figcaption class="plate-head">
-          <span class="plate-no">08</span>
-          <div class="plate-text">
-            <h3>Budgets</h3>
-            <p>Recurring monthly limits per category, measured against real spend in any chosen month. Over-budget states are colour-coded and stated in rupees, not just percentages.</p>
-          </div>
-        </figcaption>
-        <button class="shot" type="button" aria-label="Enlarge screenshot: Budgets">
-          <img src="assets/08-budgets.webp" alt="Budgets screen of the app" loading="lazy" decoding="async" width="1800" height="1125" />
-        </button>
-      </figure>
-      <figure class="plate">
-        <figcaption class="plate-head">
-          <span class="plate-no">09</span>
-          <div class="plate-text">
-            <h3>Bills &amp; reminders</h3>
-            <p>Recurring bills with due-soon severity, monthly totals and paid-this-cycle tracking, plus opt-in desktop reminders.</p>
-          </div>
-        </figcaption>
-        <button class="shot" type="button" aria-label="Enlarge screenshot: Bills &amp; reminders">
-          <img src="assets/07-bills.webp" alt="Bills &amp; reminders screen of the app" loading="lazy" decoding="async" width="1800" height="1125" />
-        </button>
-      </figure>
-      <figure class="plate">
-        <figcaption class="plate-head">
-          <span class="plate-no">10</span>
-          <div class="plate-text">
-            <h3>Investments</h3>
-            <p>Recurring and fixed deposits picked out of the statement narration — contributions paid so far, next expected instalment, and matured returns.</p>
-          </div>
-        </figcaption>
-        <button class="shot" type="button" aria-label="Enlarge screenshot: Investments">
-          <img src="assets/09-investments.webp" alt="Investments screen of the app" loading="lazy" decoding="async" width="1800" height="1125" />
-        </button>
-      </figure>
-    </section>
-
-    <section class="section" id="card">
-      <header class="section-head">
-        <p class="eyebrow">Credit card</p>
-        <h2>Cards get their own model</h2>
-        <p class="lede">A credit card statement is not a bank statement — billing cycles, a minimum due and a limit have no equivalent in a savings account, so these surfaces exist only for card accounts.</p>
-      </header>
-      <figure class="plate">
-        <figcaption class="plate-head">
-          <span class="plate-no">11</span>
-          <div class="plate-text">
-            <h3>Card overview</h3>
-            <p>Total and minimum due, payment due date, statement period, reward balance, credit utilisation against the limit, and spend per billing cycle.</p>
-          </div>
-        </figcaption>
-        <button class="shot" type="button" aria-label="Enlarge screenshot: Card overview">
-          <img src="assets/13-credit-card.webp" alt="Card overview screen of the app" loading="lazy" decoding="async" width="1800" height="1125" />
-        </button>
-      </figure>
-      <figure class="plate">
-        <figcaption class="plate-head">
-          <span class="plate-no">12</span>
-          <div class="plate-text">
-            <h3>Card report</h3>
-            <p>The same monthly report shape, re-anchored to the billing cycle rather than the calendar month.</p>
-          </div>
-        </figcaption>
-        <button class="shot" type="button" aria-label="Enlarge screenshot: Card report">
-          <img src="assets/14-cc-report.webp" alt="Card report screen of the app" loading="lazy" decoding="async" width="1800" height="1125" />
-        </button>
-      </figure>
-    </section>
-
-    <section class="section" id="import">
-      <header class="section-head">
-        <p class="eyebrow">Import &amp; setup</p>
-        <h2>Getting data in</h2>
-        <p class="lede">Three banks, four file formats. Parsers are registered per bank and extension, with content-sniffing as a fallback when the pairing is unfamiliar.</p>
-      </header>
-      <figure class="plate">
-        <figcaption class="plate-head">
-          <span class="plate-no">13</span>
-          <div class="plate-text">
-            <h3>Upload a statement</h3>
-            <p>Drag-and-drop import for HDFC, HDFC Credit Card and IOB in .txt, .csv and .pdf. Re-uploading is safe — rows are deduplicated on bank reference — and any import can be reverted whole.</p>
-          </div>
-        </figcaption>
-        <button class="shot" type="button" aria-label="Enlarge screenshot: Upload a statement">
-          <img src="assets/11-upload.webp" alt="Upload a statement screen of the app" loading="lazy" decoding="async" width="1800" height="1125" />
-        </button>
-      </figure>
-      <figure class="plate">
-        <figcaption class="plate-head">
-          <span class="plate-no">14</span>
-          <div class="plate-text">
-            <h3>Settings</h3>
-            <p>Linked accounts with live balances, category management, reminder and privacy preferences, appearance and profile.</p>
-          </div>
-        </figcaption>
-        <button class="shot" type="button" aria-label="Enlarge screenshot: Settings">
-          <img src="assets/12-settings.webp" alt="Settings screen of the app" loading="lazy" decoding="async" width="1800" height="1125" />
-        </button>
-      </figure>
-      <figure class="plate">
-        <figcaption class="plate-head">
-          <span class="plate-no">15</span>
-          <div class="plate-text">
-            <h3>First-run guide</h3>
-            <p>A short guide on first login, reopenable any time from the header.</p>
-          </div>
-        </figcaption>
-        <button class="shot" type="button" aria-label="Enlarge screenshot: First-run guide">
-          <img src="assets/00b-onboarding.webp" alt="First-run guide screen of the app" loading="lazy" decoding="async" width="1800" height="1125" />
-        </button>
-      </figure>
-      <figure class="plate">
-        <figcaption class="plate-head">
-          <span class="plate-no">16</span>
-          <div class="plate-text">
-            <h3>Sign in</h3>
-            <p>Cookie-based auth with lockout after repeated failures. First run creates the admin account.</p>
-          </div>
-        </figcaption>
-        <button class="shot" type="button" aria-label="Enlarge screenshot: Sign in">
-          <img src="assets/00-login.webp" alt="Sign in screen of the app" loading="lazy" decoding="async" width="1800" height="1125" />
-        </button>
-      </figure>
-    </section>
-
-    <section class="section" id="dark">
-      <header class="section-head">
-        <p class="eyebrow">Dark mode</p>
-        <h2>Both themes, equally</h2>
-        <p class="lede">Themes are token-level — chart colours are read from the same CSS custom properties as the rest of the UI, so plots recolour with the page instead of staying stuck in a light-mode palette.</p>
-      </header>
-      <figure class="plate">
-        <figcaption class="plate-head">
-          <span class="plate-no">17</span>
-          <div class="plate-text">
-            <h3>Overview · dark</h3>
-            
-          </div>
-        </figcaption>
-        <button class="shot" type="button" aria-label="Enlarge screenshot: Overview · dark">
-          <img src="assets/15-dark-overview.webp" alt="Overview · dark screen of the app" loading="lazy" decoding="async" width="1800" height="1125" />
-        </button>
-      </figure>
-      <figure class="plate">
-        <figcaption class="plate-head">
-          <span class="plate-no">18</span>
-          <div class="plate-text">
-            <h3>Insights · dark</h3>
-            
-          </div>
-        </figcaption>
-        <button class="shot" type="button" aria-label="Enlarge screenshot: Insights · dark">
-          <img src="assets/16-dark-insights.webp" alt="Insights · dark screen of the app" loading="lazy" decoding="async" width="1800" height="1125" />
-        </button>
-      </figure>
-      <figure class="plate">
-        <figcaption class="plate-head">
-          <span class="plate-no">19</span>
-          <div class="plate-text">
-            <h3>Trends · dark</h3>
-            
-          </div>
-        </figcaption>
-        <button class="shot" type="button" aria-label="Enlarge screenshot: Trends · dark">
-          <img src="assets/17-dark-trends.webp" alt="Trends · dark screen of the app" loading="lazy" decoding="async" width="1800" height="1125" />
-        </button>
-      </figure>
-    </section>
-
-  <p class="note">
-    Screenshots are captured from a throwaway instance seeded with real statement files.
-    Account holder, account numbers and counterparty names are substituted demo values.
-  </p>
+      <div class="features">
+        <div class="feature" data-reveal>
+          <div class="rule"></div>
+          <h3>Your data never leaves the machine</h3>
+          <p>Financial records are the obvious case, but it holds generally: software that keeps your files on your own disk cannot lose them in someone else's breach.</p>
+        </div>
+        <div class="feature" data-reveal>
+          <div class="rule"></div>
+          <h3>One install, no dependencies</h3>
+          <p>Everything a product needs is inside the installer — runtime, database, web server. Nothing to configure before it works.</p>
+        </div>
+        <div class="feature" data-reveal>
+          <div class="rule"></div>
+          <h3>It keeps working</h3>
+          <p>No subscription to lapse and no server to shut down. An installed copy runs for as long as the machine does.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
 
-<footer class="foot">
-  <div class="foot-inner">
-    <p>Built as a personal project — parsers, schema, API and UI. Adding a bank means implementing one interface and registering it.</p>
-    <a class="cta" href="https://github.com/arungdev/BankStatementAnalytics"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>github.com/arungdev</a>
+<footer class="site-foot">
+  <div class="wrap">
+    <p>Arun G — Independent software developer. Software built to run on your own machine.</p>
+    <a class="btn btn-ghost" href="https://github.com/arungdev"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>github.com/arungdev</a>
   </div>
 </footer>
-
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged screenshot">
-  <img id="lightbox-img" alt="" />
-  <span class="lightbox-hint">Click anywhere or press Esc to close</span>
-</div>
 
 <script>
 (function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var targets = document.querySelectorAll('.plate, .section-head');
+  var targets = document.querySelectorAll('[data-reveal]');
   if (!reduce && 'IntersectionObserver' in window) {
     targets.forEach(function (el) { el.classList.add('reveal'); });
     var io = new IntersectionObserver(function (entries) {
@@ -446,25 +126,6 @@
     }, { rootMargin: '0px 0px -8% 0px' });
     targets.forEach(function (el) { io.observe(el); });
   }
-
-  var box = document.getElementById('lightbox');
-  var boxImg = document.getElementById('lightbox-img');
-  var last = null;
-  document.querySelectorAll('.shot').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var img = btn.querySelector('img');
-      boxImg.src = img.src; boxImg.alt = img.alt;
-      box.classList.add('open'); last = btn;
-    });
-  });
-  function close() {
-    box.classList.remove('open'); boxImg.removeAttribute('src');
-    if (last) { last.focus(); last = null; }
-  }
-  box.addEventListener('click', close);
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && box.classList.contains('open')) close();
-  });
 })();
 </script>
 </body>
