@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About — arungdev</title>
+<meta name="description" content="Personal finance software that treats your statements as yours." />
+<link rel="canonical" href="https://arungdev.github.io/about/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://arungdev.github.io/about/" />
+<meta property="og:title" content="About — arungdev" />
+<meta property="og:description" content="Personal finance software that treats your statements as yours." />
+<meta property="og:image" content="https://arungdev.github.io/assets/og-home.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="theme-color" content="#17143A" />
+<link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="../favicon-32.png" sizes="32x32" type="image/png" />
+<link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="../assets/site.css" />
+
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../index.html"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+      <defs><linearGradient id="bm" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#8B7CFF"/><stop offset="1" stop-color="#5B54F0"/>
+      </linearGradient></defs>
+      <rect width="32" height="32" rx="9" fill="url(#bm)"/>
+      <path class="mark-glyph" d="M10 11.5 L14.8 16 L10 20.5"/>
+      <path class="mark-glyph" d="M17.6 20.8 H23"/>
+    </svg><span class="brand-name">arungdev</span></a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="../index.html#products">Products</a>
+      <a href="../docs/index.html">Docs</a>
+      <a href="../faq/index.html">FAQ</a>
+      <a href="../changelog/index.html">Changelog</a>
+      <a href="../about/index.html" aria-current="page">About</a>
+      <a href="https://github.com/arungdev">GitHub</a>
+    </nav>
+  </div>
+</header>
+<section class="section" style="padding-bottom:0">
+  <div class="wrap">
+    <p class="eyebrow">About</p>
+    <h1 class="display-2">Why this exists</h1>
+    <p class="lede" style="margin-top:1rem">Personal finance software that treats your statements as yours.</p>
+  </div>
+</section>
+
+<main class="section prose" style="padding-top:clamp(2rem,4vw,3rem)">
+  <div class="wrap-narrow">
+    <section>
+        <p>Most personal finance apps want your bank login. They connect through an aggregator, hold a copy of your transaction history on their servers, and put the thing you actually wanted — a clear view of your own money — behind an account and a subscription.</p>
+        <p>Bank Statement Analytics starts from the opposite end. Your bank already gives you a statement file. That file is enough. Hand it to a program running on your own machine and you get the analysis without handing your credentials or your financial history to anyone.</p>
+        <h3>How these are built</h3>
+        <p>Every product here follows the same shape. One installer that carries everything it needs — runtime, database, web server — so there is nothing to configure before it works. No account, no licence check, no server that can be switched off. Local data, in a folder you can copy.</p>
+        <p>The interface is a web application, but it is served by the program on your own machine, not from the internet. That is why the shortcut opens a browser at localhost.</p>
+        <h3>Open source</h3>
+        <p>The source is public. If you would rather read the code than trust a downloaded executable, or you want to add support for a bank of your own, everything is on GitHub.</p>
+        <h3>Getting in touch</h3>
+        <p>Bug reports, format problems and feature requests are best raised as GitHub issues, where they stay attached to the code and other people can find them.</p>
+        <div class="callout"><strong>Reporting a statement problem</strong><p>Describe the layout that failed rather than attaching the file. A real statement carries your account number, balances and counterparty names — never post one to a public issue tracker.</p></div>
+      <div style="display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2rem">
+        <a class="btn btn-primary" href="https://github.com/arungdev"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>github.com/arungdev</a>
+        <a class="btn btn-ghost" href="https://github.com/arungdev/BankStatementAnalytics/issues">Open an issue</a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p>Arun G — Independent software developer. Software built to run on your own machine.</p>
+    <a class="btn btn-ghost" href="https://github.com/arungdev"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>github.com/arungdev</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Hairline under the header only once the page has scrolled off the top.
+  var head = document.querySelector('.site-head');
+  var onScroll = function () { head.classList.toggle('stuck', window.scrollY > 8); };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var targets = document.querySelectorAll('[data-reveal]');
+  if (!reduce && 'IntersectionObserver' in window) {
+    targets.forEach(function (el) { el.classList.add('reveal'); });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    targets.forEach(function (el) { io.observe(el); });
+  }
+})();
+</script>
+</body>
+</html>

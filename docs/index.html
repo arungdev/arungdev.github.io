@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Documentation — arungdev</title>
+<meta name="description" content="Everything needed to get Bank Statement Analytics running and importing. Written against v1.0.0." />
+<link rel="canonical" href="https://arungdev.github.io/docs/" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://arungdev.github.io/docs/" />
+<meta property="og:title" content="Documentation — arungdev" />
+<meta property="og:description" content="Everything needed to get Bank Statement Analytics running and importing. Written against v1.0.0." />
+<meta property="og:image" content="https://arungdev.github.io/assets/og-home.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="theme-color" content="#17143A" />
+<link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="../favicon-32.png" sizes="32x32" type="image/png" />
+<link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
+<link rel="stylesheet" href="../assets/site.css" />
+
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../index.html"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+      <defs><linearGradient id="bm" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#8B7CFF"/><stop offset="1" stop-color="#5B54F0"/>
+      </linearGradient></defs>
+      <rect width="32" height="32" rx="9" fill="url(#bm)"/>
+      <path class="mark-glyph" d="M10 11.5 L14.8 16 L10 20.5"/>
+      <path class="mark-glyph" d="M17.6 20.8 H23"/>
+    </svg><span class="brand-name">arungdev</span></a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="../index.html#products">Products</a>
+      <a href="../docs/index.html" aria-current="page">Docs</a>
+      <a href="../faq/index.html">FAQ</a>
+      <a href="../changelog/index.html">Changelog</a>
+      <a href="../about/index.html">About</a>
+      <a href="https://github.com/arungdev">GitHub</a>
+    </nav>
+  </div>
+</header>
+<section class="section" style="padding-bottom:0">
+  <div class="wrap">
+    <p class="eyebrow">Documentation</p>
+    <h1 class="display-2">Install it, feed it statements, read the results</h1>
+    <p class="lede" style="margin-top:1rem">Everything needed to get Bank Statement Analytics running and importing. Written against v1.0.0.</p>
+  </div>
+</section>
+
+<main class="section" style="padding-top:clamp(2rem,4vw,3rem)">
+  <div class="wrap doc-layout">
+    <aside class="doc-toc">
+      <p class="toc-label">On this page</p>
+      <nav aria-label="Table of contents">
+        <a href="#install">Install</a>
+        <a href="#first-run">First run</a>
+        <a href="#accounts">Add an account</a>
+        <a href="#export">Export a statement from your bank</a>
+        <a href="#upload">Upload it</a>
+        <a href="#auto-import">Import without lifting a finger</a>
+        <a href="#categorize">Review and categorize</a>
+        <a href="#planning">Budgets, bills and deposits</a>
+        <a href="#reports">Reports</a>
+        <a href="#privacy">Privacy controls</a>
+        <a href="#data">Where your data lives</a>
+        <a href="#service">The Windows service</a>
+        <a href="#uninstall">Uninstall</a>
+      </nav>
+    </aside>
+    <div class="prose">
+      <section id="install">
+        <h2>Install</h2>
+        <p>Download the installer from the releases page and run it. It installs machine-wide under Program Files, so Windows will ask for administrator rights.</p>
+        <ol class="steps">
+          <li>Run the downloaded setup file.</li>
+          <li>Windows SmartScreen may warn that the publisher is unrecognised — the build is not code-signed. Choose &quot;More info&quot;, then &quot;Run anyway&quot;.</li>
+          <li>Accept the install location, or change it.</li>
+          <li>Setup registers a background service and finishes.</li>
+        </ol>
+        <p>A desktop shortcut is created. It opens your browser at the address the service listens on rather than launching an executable, because the app is a local web application.</p>
+        <div class="callout"><strong>Where it runs</strong><p>http://localhost:5080 — the shortcut, the Start menu entry and any bookmark all point here.</p></div>
+        <h3>Portable instead</h3>
+        <p>The portable build is the same application without the installer. Unzip it and run the executable directly. Nothing is written outside the folder you extracted it to, no service is registered, and the app runs only while the window is open.</p>
+      </section>
+
+      <section id="first-run">
+        <h2>First run</h2>
+        <p>The first time you open the app it asks you to create an administrator account. That username and password are stored locally — there is no sign-up, no email verification and no remote account.</p>
+        <p>A short guide opens automatically on first login. You can reopen it any time from the ? button in the page header.</p>
+        <div class="callout"><strong>Forgot the password?</strong><p>There is no reset email — nothing leaves the machine. Additional users can be created under Settings → Profile while you are signed in, so add a second admin if you want a way back in.</p></div>
+      </section>
+
+      <section id="accounts">
+        <h2>Add an account</h2>
+        <p>Everything starts with an account — one for each bank account or credit card you want to track. Use the &quot;+ Add&quot; button in the account filter, or Settings → Accounts.</p>
+        <p>Supported banks are HDFC, HDFC Credit Card and IOB. Credit cards additionally take a credit limit and a statement day, which drive the utilisation meter and the billing-cycle view.</p>
+      </section>
+
+      <section id="export">
+        <h2>Export a statement from your bank</h2>
+        <p>The app reads the files your bank already provides. It never asks for your net banking credentials and never connects to your bank.</p>
+        <h3>HDFC Bank — .txt or .pdf</h3>
+        <ol class="steps">
+          <li>Log in to HDFC NetBanking.</li>
+          <li>Go to Accounts → Enquire → Statement of Account (or &quot;Download Historical Transactions&quot;).</li>
+          <li>Pick the account and the date range you want.</li>
+          <li>Choose the &quot;Delimited (.txt)&quot; file type and download.</li>
+          <li>Or upload the monthly e-statement PDF emailed by the bank — enter its PDF password if it is protected.</li>
+        </ol>
+        <h3>HDFC Credit Card — .csv or .pdf</h3>
+        <ol class="steps">
+          <li>Log in to HDFC NetBanking.</li>
+          <li>Go to Cards → Credit Cards → View / Download Statement.</li>
+          <li>Select the card and billing period.</li>
+          <li>Download the statement in CSV format.</li>
+          <li>Or upload the monthly e-statement PDF emailed by the bank — enter its PDF password if it is protected.</li>
+        </ol>
+        <h3>Indian Overseas Bank — .txt or .pdf</h3>
+        <ol class="steps">
+          <li>Log in to IOB NetBanking.</li>
+          <li>Go to Account Statement / Statement of Account.</li>
+          <li>Select the account and the period you want.</li>
+          <li>Download / export the statement as a text (.txt) file.</li>
+          <li>Or upload the e-statement PDF — enter its PDF password if it is protected.</li>
+        </ol>
+      </section>
+
+      <section id="upload">
+        <h2>Upload it</h2>
+        <p>Open the Upload page, pick the account, and drop the file in. The page shows which formats the selected bank accepts, and links to the same export steps listed above.</p>
+        <ul>
+          <li>Password-protected PDFs work — you are prompted for the password.</li>
+          <li>Duplicates are skipped automatically, so re-uploading an overlapping date range is safe.</li>
+          <li>Every import is listed in Upload History with the number of transactions it added.</li>
+          <li>Revert removes that import completely — its transactions and the stored file.</li>
+        </ul>
+      </section>
+
+      <section id="auto-import">
+        <h2>Import without lifting a finger</h2>
+        <p>Under Settings → Accounts, each account can watch a folder. Point it at wherever your browser saves statements and new files are imported on their own.</p>
+        <ul>
+          <li>The folder is swept about once a minute, so a file dropped while the machine was off is still picked up on the next start.</li>
+          <li>Files already imported, recognised as duplicates or failed are remembered and not retried, unless you edit the file or restart the service.</li>
+          <li>A statement password can be saved per account so protected PDFs import unattended.</li>
+          <li>&quot;Import now&quot; runs a sweep immediately instead of waiting for the interval.</li>
+          <li>Anything that fails is reported in the notification bell in the header.</li>
+        </ul>
+      </section>
+
+      <section id="categorize">
+        <h2>Review and categorize</h2>
+        <p>Imported transactions are categorized automatically by merchant. The counterparty is resolved out of the raw UPI string or narration, and each merchant carries a default category.</p>
+        <ul>
+          <li>Transactions — filter by date, re-categorize, add tags and notes.</li>
+          <li>Merchants — rename, merge duplicates, bulk-categorize, set default categories.</li>
+          <li>A category set on a single transaction always wins over the merchant default.</li>
+        </ul>
+        <h3>Transfers</h3>
+        <p>When a debit in one of your accounts matches an equal credit in another within a few days, the app proposes it as a transfer. Confirming the pair removes both sides from income and spending — you moved your own money, you did not earn or spend it. This is what keeps the totals meaningful once you hold more than one account.</p>
+      </section>
+
+      <section id="planning">
+        <h2>Budgets, bills and deposits</h2>
+        <ul>
+          <li>Budgets — a monthly limit per category. Set once, applied to every month, measured against real spend in whichever month you select.</li>
+          <li>Bills — recurring bills with due dates and reminders, including credit-card bills. Opt in to desktop notifications under Settings → Reminders.</li>
+          <li>Investments — recurring and fixed deposits picked out of the statement narration, with contributions paid so far and maturity dates.</li>
+        </ul>
+      </section>
+
+      <section id="reports">
+        <h2>Reports</h2>
+        <p>Reports closes off a month or a year: opening and closing balance, spend by category, top merchants, and deposits. Download PDF exports the same report as a document.</p>
+        <p>For a credit card the report is anchored to the billing cycle rather than the calendar month, because that is the period the card actually settles on.</p>
+      </section>
+
+      <section id="privacy">
+        <h2>Privacy controls</h2>
+        <ul>
+          <li>The eye button in the header masks every amount on screen, and counterparty names too if you want — useful when sharing a screen.</li>
+          <li>Appearance offers light, dark or follow-your-device, plus a text size setting.</li>
+          <li>Additional users can be created, each with their own login.</li>
+        </ul>
+      </section>
+
+      <section id="data">
+        <h2>Where your data lives</h2>
+        <p>Everything the app stores sits in a Data folder next to the installed executable — the PostgreSQL database it runs embedded, your uploaded statement files, and the encryption keys for the login cookie. Nothing is written to a cloud service and nothing is transmitted anywhere.</p>
+        <h3>Backing up</h3>
+        <ol class="steps">
+          <li>Stop the Bank Statement Analytics service, so the database is not mid-write.</li>
+          <li>Copy the Data folder somewhere safe.</li>
+          <li>Start the service again.</li>
+        </ol>
+        <div class="callout"><strong>Restoring</strong><p>Reverse it — stop the service, put the Data folder back, start the service. Restore onto the same or a newer version; older versions will not understand a newer schema.</p></div>
+      </section>
+
+      <section id="service">
+        <h2>The Windows service</h2>
+        <p>The installer registers the app as a service so it is running whenever the PC is, without anyone signing in. It runs under the LocalService account rather than as an administrator — the embedded PostgreSQL refuses to run elevated, so this is deliberate.</p>
+        <p>Manage it like any other service: open services.msc and look for Bank Statement Analytics, or use sc stop / sc start from an administrator prompt.</p>
+      </section>
+
+      <section id="uninstall">
+        <h2>Uninstall</h2>
+        <p>Uninstall from Settings → Apps → Installed apps, as usual. The uninstaller stops and removes the service first.</p>
+        <div class="callout"><strong>Your data</strong><p>Check whether the Data folder survived the uninstall before you reinstall or delete the install directory — it holds your entire transaction history.</p></div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p>Arun G — Independent software developer. Software built to run on your own machine.</p>
+    <a class="btn btn-ghost" href="https://github.com/arungdev"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>github.com/arungdev</a>
+  </div>
+</footer>
+<script>
+(function () {
+  // Highlight the section currently in view in the table of contents.
+  var links = [].slice.call(document.querySelectorAll('.doc-toc a'));
+  var byId = {};
+  links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      links.forEach(function (a) { a.classList.remove('active'); });
+      if (byId[e.target.id]) byId[e.target.id].classList.add('active');
+    });
+  }, { rootMargin: '-96px 0px -70% 0px' });
+  document.querySelectorAll('.prose > section').forEach(function (s) { io.observe(s); });
+})();
+</script>
+
+<script>
+(function () {
+  // Hairline under the header only once the page has scrolled off the top.
+  var head = document.querySelector('.site-head');
+  var onScroll = function () { head.classList.toggle('stuck', window.scrollY > 8); };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var targets = document.querySelectorAll('[data-reveal]');
+  if (!reduce && 'IntersectionObserver' in window) {
+    targets.forEach(function (el) { el.classList.add('reveal'); });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    targets.forEach(function (el) { io.observe(el); });
+  }
+})();
+</script>
+</body>
+</html>

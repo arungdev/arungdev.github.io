@@ -15,6 +15,9 @@
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="theme-color" content="#17143A" />
+<link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="../favicon-32.png" sizes="32x32" type="image/png" />
+<link rel="apple-touch-icon" href="../apple-touch-icon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" />
@@ -25,10 +28,20 @@
 <body>
 <header class="site-head">
   <div class="wrap">
-    <a class="brand" href="../index.html"><span class="dot"></span>arungdev</a>
+    <a class="brand" href="../index.html"><svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+      <defs><linearGradient id="bm" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#8B7CFF"/><stop offset="1" stop-color="#5B54F0"/>
+      </linearGradient></defs>
+      <rect width="32" height="32" rx="9" fill="url(#bm)"/>
+      <path class="mark-glyph" d="M10 11.5 L14.8 16 L10 20.5"/>
+      <path class="mark-glyph" d="M17.6 20.8 H23"/>
+    </svg><span class="brand-name">arungdev</span></a>
     <nav class="site-nav" aria-label="Site">
       <a href="../index.html#products" aria-current="page">Products</a>
-      <a href="../index.html#about">About</a>
+      <a href="../docs/index.html">Docs</a>
+      <a href="../faq/index.html">FAQ</a>
+      <a href="../changelog/index.html">Changelog</a>
+      <a href="../about/index.html">About</a>
       <a href="https://github.com/arungdev">GitHub</a>
     </nav>
   </div>
