@@ -737,3 +737,122 @@ ol.steps li::before {
   .btn-lg { padding: .9rem 1.15rem; font-size: .98rem; }
   .hero-actions .btn { width: 100%; justify-content: center; }
 }
+
+/* ─────────────────────────────────────────────────────────────
+   Motion
+   Base styles are the resting, visible state; animations run FROM
+   a hidden keyframe. That way the reduced-motion rule at the end of
+   this file can switch animation off without leaving anything invisible.
+   ───────────────────────────────────────────────────────────── */
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes frameIn {
+  from { opacity: 0; transform: translateY(28px) scale(.975); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes drift {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(2.5%, 2%, 0); }
+}
+@keyframes shimmer {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+@keyframes sheen {
+  from { transform: translateX(-120%) skewX(-18deg); }
+  to   { transform: translateX(320%) skewX(-18deg); }
+}
+
+/* Hero entrance — one orchestrated sequence rather than scattered effects. */
+.hero .pill,
+.hero h1,
+.hero .lede,
+.hero-actions,
+.hero .frame {
+  animation: rise .75s var(--ease) both;
+}
+.hero .pill      { animation-delay: .04s; }
+.hero h1         { animation-delay: .12s; }
+.hero .lede      { animation-delay: .20s; }
+.hero-actions    { animation-delay: .28s; }
+.hero .frame     { animation: frameIn .9s var(--ease) .34s both; }
+
+/* The glow behind the hero drifts slowly, so the field is never quite static. */
+.hero::before { animation: drift 26s ease-in-out infinite; }
+
+/* The gradient phrase in the headline breathes rather than sitting flat. */
+.grad {
+  background: linear-gradient(100deg, var(--accent-2) 8%, #6EE7F0 46%, var(--accent-2) 84%);
+  background-size: 200% 100%;
+  animation: shimmer 9s linear infinite;
+}
+
+/* Download buttons nudge their arrow down — the gesture matches the verb. */
+.btn svg { transition: transform .22s var(--ease); }
+.btn-primary:hover svg,
+.btn-light:hover svg { transform: translateY(2px); }
+.btn-ghost:hover svg,
+.btn-outline-light:hover svg { transform: translateY(1px); }
+
+/* A light sweep passes over a product card on hover. */
+.product-card .thumb { position: relative; }
+.product-card .thumb::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 45%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.16), transparent);
+  transform: translateX(-120%) skewX(-18deg);
+  pointer-events: none;
+}
+.product-card:hover .thumb::after { animation: sheen .85s var(--ease); }
+
+/* Tiles pick up the accent as the pointer arrives. */
+.tile { position: relative; }
+.tile:hover { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.tile .rule, .tile .idx { transition: transform .22s var(--ease); }
+.tile:hover .idx { transform: translateX(3px); }
+
+/* Nav items grow an underline from the centre. */
+.site-nav a { position: relative; }
+.site-nav a::after {
+  content: "";
+  position: absolute;
+  left: 50%; right: 50%; bottom: .28rem;
+  height: 1.5px;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: left .22s var(--ease), right .22s var(--ease);
+}
+.site-nav a:hover::after,
+.site-nav a[aria-current="page"]::after { left: .75rem; right: .75rem; }
+
+/* Screenshot plates stagger in rather than all arriving together. */
+.plate.reveal { transition-delay: .04s; }
+
+/* The lightbox scales up instead of appearing. */
+.lightbox img { animation: frameIn .32s var(--ease) both; }
+
+/* Reading progress along the top of long pages. */
+.progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  z-index: 40;
+  pointer-events: none;
+}
+
+/* Footer links slide slightly toward the pointer. */
+.foot-col a { transition: color .18s var(--ease), transform .18s var(--ease); }
+.foot-col a:hover { transform: translateX(3px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .progress { display: none; }
+}

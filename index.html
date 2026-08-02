@@ -182,10 +182,36 @@
     targets.forEach(function (el) { el.classList.add('reveal'); });
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        if (!e.isIntersecting) return;
+        // Stagger siblings so a row of cards arrives in sequence, not at once.
+        var sibs = e.target.parentElement
+          ? [].slice.call(e.target.parentElement.children).filter(function (c) { return c.classList.contains('reveal'); })
+          : [];
+        var i = Math.max(0, sibs.indexOf(e.target));
+        e.target.style.transitionDelay = Math.min(i, 5) * 70 + 'ms';
+        e.target.classList.add('in');
+        io.unobserve(e.target);
       });
     }, { rootMargin: '0px 0px -8% 0px' });
     targets.forEach(function (el) { io.observe(el); });
+  }
+
+  // Reading progress along the top. Skipped entirely when motion is reduced.
+  if (!reduce) {
+    var bar = document.createElement('div');
+    bar.className = 'progress';
+    document.body.appendChild(bar);
+    var queued = false;
+    var draw = function () {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, window.scrollY / max) : 0) + ')';
+      queued = false;
+    };
+    draw();
+    window.addEventListener('scroll', function () {
+      if (!queued) { queued = true; requestAnimationFrame(draw); }
+    }, { passive: true });
+    window.addEventListener('resize', draw, { passive: true });
   }
 })();
 </script>
