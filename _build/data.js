@@ -7,7 +7,7 @@ const GH_USER = 'https://github.com/arungdev';
 const OWNER = {
   name: 'Arun G',
   handle: 'arungdev',
-  role: 'Independent software developer',
+  kicker: 'Free · Self-hosted · Windows',
   blurb: 'I build self-hosted Windows desktop software — applications that install and run entirely on your own machine, with no account to create and no data leaving it.',
 };
 

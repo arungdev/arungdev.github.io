@@ -216,7 +216,7 @@ ${siteHeader(0, 'products')}
 <section class="hero">
   <div class="wrap hero-split">
     <div class="hero-copy">
-      <span class="pill"><span class="spark"></span>${esc(OWNER.role)}</span>
+      <span class="pill"><span class="spark"></span>${esc(OWNER.kicker)}</span>
       <h1 class="display-1">Software that runs on <span class="grad">your machine</span>, not someone else's.</h1>
       <p class="lede">${esc(OWNER.blurb)}</p>
       <div class="hero-actions">
