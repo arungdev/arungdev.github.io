@@ -70,7 +70,7 @@ const PRODUCTS = [
         sub: 'Installer · v1.0.0 · 64-bit',
         file: 'BankStatementAnalytics-Setup-1.0.0.exe',
         size: '66.2 MB',
-        sha256: '80cec68f917a560d43864b95ddc035b72132cba624792c761243a8105b11be74',
+        sha256: '236d626f1d9cc0a22fd828227c3c0f1260fb45800ecfb8f4f11fcf00c936dd14',
         note: 'Installs to Program Files and registers a background service, so the app is running whenever your PC is. Opens at localhost:5080 from the desktop shortcut. Needs administrator rights to install.',
       },
       {
@@ -79,7 +79,7 @@ const PRODUCTS = [
         sub: 'ZIP · v1.0.0 · no installer',
         file: 'BankStatementAnalytics-Portable-1.0.0.zip',
         size: '100.6 MB',
-        sha256: '07f536f6cd453e3d6ce8c0dea43c87c82cb9fc4cc908264def7a19f1dadb2f75',
+        sha256: '7340be32d66055c831105193b935d211908dbdbd403750e1c45a5f4e2e3c9b84',
         note: 'Unzip and run the executable directly. Nothing is written outside the folder you extract it to. No service is registered, so the app runs only while the window is open.',
       },
     ],
