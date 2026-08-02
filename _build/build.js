@@ -129,6 +129,20 @@ function siteHeader(depth, current) {
 </header>`;
 }
 
+
+// A breadcrumb under the header on subpages: at a glance, where you are and
+// one click back out. The root needs none - it is the root.
+function crumbs(depth, trail) {
+  if (!trail || !trail.length) return '';
+  const up = depth ? '../'.repeat(depth) : '';
+  const items = trail.map((t, i) => {
+    const last = i === trail.length - 1;
+    return last
+      ? `<span aria-current="page">${esc(t[0])}</span>`
+      : `<a href="${up}${t[1]}">${esc(t[0])}</a>`;
+  }).join('<span class="sep" aria-hidden="true">/</span>');
+  return `<nav class="crumbs" aria-label="Breadcrumb"><div class="wrap">${items}</div></nav>`;
+}
 function siteFooter(depth) {
   const up = depth ? '../'.repeat(depth) : '';
   const products = PRODUCTS.map(p =>
@@ -251,6 +265,22 @@ const LIGHTBOX_JS = `
     box.classList.remove('open'); boxImg.removeAttribute('src');
     if (last) { last.focus(); last = null; }
   }
+
+  // Keep the sticky tour bar showing which section is on screen.
+  var tabs = [].slice.call(document.querySelectorAll('.tour-bar .tour-nav a'));
+  if (tabs.length) {
+    var byId = {};
+    tabs.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        tabs.forEach(function (a) { a.removeAttribute('aria-current'); });
+        var a = byId[e.target.id];
+        if (a) { a.setAttribute('aria-current', 'true'); a.scrollIntoView({ block: 'nearest', inline: 'nearest' }); }
+      });
+    }, { rootMargin: '-130px 0px -65% 0px' });
+    document.querySelectorAll('.tour-wrap section[id]').forEach(function (sec) { spy.observe(sec); });
+  }
   box.addEventListener('click', close);
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && box.classList.contains('open')) close();
@@ -336,32 +366,6 @@ ${siteHeader(0, 'products')}
 </section>
 
 <main id="main">
-  <section class="section" id="how">
-    <div class="wrap">
-      <header class="section-head" data-reveal>
-        <p class="eyebrow">How it works</p>
-        <h2 class="display-2">Three steps, then it is just there</h2>
-        <p class="lede">No connecting accounts, no waiting for a sync. The whole loop runs on files you already have.</p>
-      </header>
-      <ol class="steps-flow">
-${steps}
-      </ol>
-    </div>
-  </section>
-
-  <section class="section section-alt" id="privacy">
-    <div class="wrap">
-      <header class="section-head" data-reveal>
-        <p class="eyebrow">Where your data goes</p>
-        <h2 class="display-2">Nowhere</h2>
-        <p class="lede">Claims worth checking rather than taking on faith — every one of them is visible in the source.</p>
-      </header>
-      <div class="trust-grid">
-${trust}
-      </div>
-    </div>
-  </section>
-
   <section class="section" id="products">
     <div class="wrap">
       <header class="section-head" data-reveal>
@@ -382,28 +386,28 @@ ${cards}
     </div>
   </section>
 
-  <section class="section section-alt" id="about">
-    <div class="wrap-narrow">
+  <section class="section section-alt" id="how">
+    <div class="wrap">
       <header class="section-head" data-reveal>
-        <p class="eyebrow">About</p>
-        <h2 class="display-2">Why local-first</h2>
+        <p class="eyebrow">How it works</p>
+        <h2 class="display-2">Three steps, then it is just there</h2>
+        <p class="lede">No connecting accounts, no waiting for a sync. The whole loop runs on files you already have.</p>
       </header>
-      <div class="bento">
-        <div class="tile" data-reveal>
-          <p class="idx">01</p>
-          <h3>Your data never leaves the machine</h3>
-          <p>Financial records are the obvious case, but it holds generally: software that keeps your files on your own disk cannot lose them in someone else's breach.</p>
-        </div>
-        <div class="tile" data-reveal>
-          <p class="idx">02</p>
-          <h3>One install, no dependencies</h3>
-          <p>Everything a product needs is inside the installer — runtime, database, web server. Nothing to configure before it works.</p>
-        </div>
-        <div class="tile" data-reveal>
-          <p class="idx">03</p>
-          <h3>It keeps working</h3>
-          <p>No subscription to lapse and no server to shut down. An installed copy runs for as long as the machine does.</p>
-        </div>
+      <ol class="steps-flow">
+${steps}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="privacy">
+    <div class="wrap">
+      <header class="section-head" data-reveal>
+        <p class="eyebrow">Where your data goes</p>
+        <h2 class="display-2">Nowhere</h2>
+        <p class="lede">Claims worth checking rather than taking on faith — every one of them is visible in the source.</p>
+      </header>
+      <div class="trust-grid">
+${trust}
       </div>
     </div>
   </section>
@@ -492,6 +496,7 @@ ${plates}
     },
   })}
 ${siteHeader(1, 'products')}
+${crumbs(1, [['arungdev', 'index.html'], ['Products', 'index.html#products'], [p.name]])}
 
 <section class="hero">
   <div class="wrap hero-split">
@@ -556,18 +561,25 @@ ${reqs}
     </div>
   </section>
 
-  <section class="section" id="tour">
+  <div class="tour-wrap">
+  <section class="section" id="tour" style="padding-bottom:0">
     <div class="wrap-wide">
       <header class="section-head" data-reveal>
         <p class="eyebrow">Screens</p>
         <h2 class="display-2">Every screen, at full size</h2>
         <p class="lede">Click any screenshot to enlarge it.</p>
       </header>
-      <nav class="tour-nav" aria-label="Tour sections">${tourNav}</nav>
     </div>
   </section>
 
+  <div class="tour-bar">
+    <div class="wrap-wide">
+      <nav class="tour-nav" aria-label="Tour sections">${tourNav}</nav>
+    </div>
+  </div>
+
 ${tour}
+  </div>
 
   <section class="section" style="padding-top:0">
     <div class="wrap-wide">
@@ -627,6 +639,7 @@ ${renderBlocks(s.blocks)}
     ogImage: `${SITE}/assets/og-home.png`, accent: null, depth: 1,
   })}
 ${siteHeader(1, 'docs')}
+${crumbs(1, [['arungdev', 'index.html'], ['Documentation']])}
 ${pageHead(d.eyebrow, d.title, d.lede)}
 
 <main id="main" class="section" style="padding-top:clamp(2rem,4vw,3rem)">
@@ -691,6 +704,7 @@ ${items.map(i => `            <li>${esc(i)}</li>`).join('\n')}
     ogImage: `${SITE}/assets/og-home.png`, accent: null, depth: 1,
   })}
 ${siteHeader(1, 'changelog')}
+${crumbs(1, [['arungdev', 'index.html'], ['Changelog']])}
 ${pageHead(c.eyebrow, c.title, c.lede)}
 
 <main id="main" class="section prose" style="padding-top:clamp(2rem,4vw,3rem)">
@@ -713,6 +727,7 @@ function buildAbout(a) {
     ogImage: `${SITE}/assets/og-home.png`, accent: null, depth: 1,
   })}
 ${siteHeader(1, 'about')}
+${crumbs(1, [['arungdev', 'index.html'], ['About']])}
 ${pageHead(a.eyebrow, a.title, a.lede)}
 
 <main id="main" class="section prose" style="padding-top:clamp(2rem,4vw,3rem)">

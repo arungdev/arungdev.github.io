@@ -1060,3 +1060,44 @@ ol.steps li::before {
   padding: .15em .4em;
   overflow-wrap: anywhere;
 }
+
+/* ── Breadcrumbs ──────────────────────────────────────────── */
+.crumbs {
+  border-bottom: 1px solid var(--line);
+  background: var(--ground-2);
+}
+.crumbs .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem;
+  padding-block: .7rem;
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .04em;
+}
+.crumbs a { color: var(--muted); text-decoration: none; }
+.crumbs a:hover { color: var(--accent); }
+.crumbs [aria-current="page"] { color: var(--ink); }
+.crumbs .sep { color: var(--line-strong); }
+
+/* ── Sticky tour navigation ───────────────────────────────── */
+.tour-bar {
+  position: sticky;
+  top: 68px;
+  z-index: 15;
+  background: color-mix(in srgb, var(--ground) 86%, transparent);
+  backdrop-filter: saturate(1.4) blur(12px);
+  border-block: 1px solid var(--line);
+  padding-block: .7rem;
+}
+.tour-bar .tour-nav { margin-bottom: 0; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+.tour-bar .tour-nav::-webkit-scrollbar { display: none; }
+.tour-bar .tour-nav a { white-space: nowrap; }
+.tour-bar .tour-nav a[aria-current="true"] {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-wash);
+}
+/* The plate sections must clear both sticky bars when jumped to. */
+.tour-wrap .section { scroll-margin-top: 124px; }
