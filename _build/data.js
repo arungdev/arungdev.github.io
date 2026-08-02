@@ -23,6 +23,10 @@ const PRODUCTS = [
     platform: 'Windows 10/11 · 64-bit',
     repo: `${GH_USER}/BankStatementAnalytics`,
     releases: `${GH_USER}/BankStatementAnalytics/releases/latest`,
+    // Direct link to the installer asset, so the download buttons hand over the
+    // .exe instead of dropping the reader on a GitHub release page to hunt for
+    // it. The asset filename carries the version, so bump this with `version`.
+    installer: `${GH_USER}/BankStatementAnalytics/releases/download/v1.0.0/Bank.Statement.Analytics-Setup-1.0.0.exe`,
     cover: '01-overview',
     accent: '#4F46E5',
 
