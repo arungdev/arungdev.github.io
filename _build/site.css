@@ -1026,3 +1026,37 @@ ol.steps li::before {
 .trust-item { display: flex; gap: 1rem; align-items: flex-start; }
 .trust-item h3 { font-size: 1.02rem; letter-spacing: -.015em; margin-bottom: .3rem; }
 .trust-item p { margin: 0; color: var(--muted); font-size: .93rem; }
+
+/* ── Download metadata ────────────────────────────────────── */
+.dl-meta {
+  margin: 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: .5rem;
+  font-size: .82rem;
+}
+.dl-meta > div { display: flex; gap: .75rem; align-items: baseline; }
+.dl-meta dt {
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  flex: none;
+  min-width: 5.2rem;
+}
+.dl-meta dd { margin: 0; color: var(--ink-2); min-width: 0; }
+.dl-sum { align-items: flex-start; }
+.dl-sum dd { min-width: 0; overflow-wrap: anywhere; }
+.dl-meta code {
+  font-family: var(--mono);
+  font-size: .74rem;
+  line-height: 1.5;
+  color: var(--muted);
+  background: var(--ground-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xs);
+  padding: .15em .4em;
+  overflow-wrap: anywhere;
+}

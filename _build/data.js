@@ -23,10 +23,10 @@ const PRODUCTS = [
     platform: 'Windows 10/11 · 64-bit',
     repo: `${GH_USER}/BankStatementAnalytics`,
     releases: `${GH_USER}/BankStatementAnalytics/releases/latest`,
-    // Direct link to the installer asset, so the download buttons hand over the
-    // .exe instead of dropping the reader on a GitHub release page to hunt for
-    // it. The asset filename carries the version, so bump this with `version`.
-    installer: `${GH_USER}/BankStatementAnalytics/releases/download/v1.0.0/Bank.Statement.Analytics-Setup-1.0.0.exe`,
+    // Where release assets live. Asset names carry the version, so bump
+    // `version` and these together. Names, sizes and checksums below are the
+    // ones GitHub reports for the published release - do not hand-edit them.
+    assetBase: `${GH_USER}/BankStatementAnalytics/releases/download/v1.0.0`,
     cover: '01-overview',
     accent: '#4F46E5',
 
@@ -68,12 +68,18 @@ const PRODUCTS = [
         kind: 'primary',
         label: 'Download for Windows',
         sub: 'Installer · v1.0.0 · 64-bit',
+        file: 'BankStatementAnalytics-Setup-1.0.0.exe',
+        size: '66.2 MB',
+        sha256: '80cec68f917a560d43864b95ddc035b72132cba624792c761243a8105b11be74',
         note: 'Installs to Program Files and registers a background service, so the app is running whenever your PC is. Opens at localhost:5080 from the desktop shortcut. Needs administrator rights to install.',
       },
       {
         kind: 'secondary',
         label: 'Portable build',
-        sub: 'ZIP · no installer',
+        sub: 'ZIP · v1.0.0 · no installer',
+        file: 'BankStatementAnalytics-Portable-1.0.0.zip',
+        size: '100.6 MB',
+        sha256: '07f536f6cd453e3d6ce8c0dea43c87c82cb9fc4cc908264def7a19f1dadb2f75',
         note: 'Unzip and run the executable directly. Nothing is written outside the folder you extract it to. No service is registered, so the app runs only while the window is open.',
       },
     ],
