@@ -26,6 +26,28 @@ const PRODUCTS = [
     cover: '01-overview',
     accent: '#4F46E5',
 
+    // The three-step story most product sites lead with, told once.
+    howItWorks: [
+      ['export', 'Export a statement',
+       'Download the statement your bank already offers — .txt, .csv or .pdf. No credentials are ever asked for.'],
+      ['import', 'Drop it in',
+       'Pick the account, drop the file. Duplicates are skipped, so overlapping ranges are safe. Or point it at a folder and forget about it.'],
+      ['read', 'See where the money went',
+       'Transactions are categorized by merchant on the way in. Trends, budgets, bills and monthly reports follow from there.'],
+    ],
+
+    // Concrete, checkable claims rather than "we take privacy seriously".
+    trust: [
+      ['lock', 'No account to create',
+       'You choose a username on first run and it is stored on your machine. There is no sign-up and no server holding it.'],
+      ['plug', 'No bank connection',
+       'It never asks for net banking credentials and never talks to your bank. It reads files you already have.'],
+      ['home', 'Nothing is uploaded',
+       'The database and your statements sit in a folder beside the program. Unplug the network and it behaves identically.'],
+      ['code', 'Readable source',
+       'The code is public. If you would rather not trust a downloaded binary, build it yourself.'],
+    ],
+
     highlights: [
       ['Reads the files your bank already gives you',
        'No screen-scraping, no bank credentials, no third-party aggregator. Export a statement from net banking and drop it in.'],

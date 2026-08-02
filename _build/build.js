@@ -20,11 +20,24 @@ const externalize = html => html.replace(
     ? match
     : `<a ${attrs} target="_blank" rel="noopener noreferrer">`);
 
+// Line icons for the how-it-works and trust sections.
+const ICON = {
+  export: 'M12 3v10m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2',
+  import: 'M12 21V11m0 0 4 4m-4-4-4 4M4 7V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2',
+  read:   'M4 20V10m5 10V4m5 16v-7m5 7V8',
+  lock:   'M7 11V8a5 5 0 0 1 10 0v3M5 11h14v10H5z',
+  plug:   'M9 3v6m6-6v6M5 9h14v3a7 7 0 0 1-7 7 7 7 0 0 1-7-7z',
+  home:   'M4 11 12 4l8 7M6 10v10h12V10',
+  code:   'M9 17 4 12l5-5m6 10 5-5-5-5',
+};
+const icon = name =>
+  `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="${ICON[name]}"/></svg>`;
+
 const GH_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>';
 const DL_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1a1 1 0 0 1 1 1v6.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.42L7 8.59V2a1 1 0 0 1 1-1Zm-6 11a1 1 0 0 1 1 1v1h10v-1a1 1 0 1 1 2 0v1.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 14.5V13a1 1 0 0 1 1-1Z"/></svg>';
 
 // Shared <head>. `depth` is how many levels below root the page sits.
-function head({ title, desc, url, ogImage, accent, depth }) {
+function head({ title, desc, url, ogImage, accent, depth, jsonLd }) {
   const up = depth ? '../'.repeat(depth) : '';
   return `<!doctype html>
 <html lang="en">
@@ -52,7 +65,9 @@ function head({ title, desc, url, ogImage, accent, depth }) {
 <link rel="stylesheet" href="${up}assets/site.css" />
 ${accent ? `<style>:root { --accent: ${accent}; }\n@media (prefers-color-scheme: dark) { :root { --accent: ${lighten(accent)}; } }</style>` : ''}
 </head>
-<body>`;
+<body>
+<a class="skip" href="#main">Skip to content</a>
+${jsonLd ? `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>` : ''}`;
 }
 
 // Product accents are picked for a light ground; nudge them brighter for dark.
@@ -90,6 +105,10 @@ function siteHeader(depth, current) {
     <nav class="site-nav" aria-label="Site">
       ${links}
       <a href="${GH_USER}">GitHub</a>
+      <button class="theme-toggle" type="button" aria-label="Switch colour theme" title="Switch colour theme">
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+      </button>
     </nav>
   </div>
 </header>`;
@@ -138,6 +157,23 @@ const REVEAL_JS = `
   var onScroll = function () { head.classList.toggle('stuck', window.scrollY > 8); };
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
+
+
+  // Theme: follow the system until the reader says otherwise, then remember.
+  var root = document.documentElement;
+  var saved = null;
+  try { saved = localStorage.getItem('theme'); } catch (e) {}
+  if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
+  var toggle = document.querySelector('.theme-toggle');
+  if (toggle) {
+    toggle.addEventListener('click', function () {
+      var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var now = root.getAttribute('data-theme') || (systemDark ? 'dark' : 'light');
+      var next = now === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+  }
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var targets = document.querySelectorAll('[data-reveal]');
@@ -210,6 +246,22 @@ const LIGHTBOX_JS = `
 /* ── Home ──────────────────────────────────────────────────── */
 function buildHome() {
   const hero = PRODUCTS[0]; // newest/flagship product supplies the hero shot
+  const steps = hero.howItWorks.map(([ic, t, d], i) => `
+        <li class="step" data-reveal>
+          <span class="step-n">${String(i + 1).padStart(2, '0')}</span>
+          <span class="step-ic">${icon(ic)}</span>
+          <h3>${esc(t)}</h3>
+          <p>${esc(d)}</p>
+        </li>`).join('\n');
+
+  const trust = hero.trust.map(([ic, t, d]) => `
+        <div class="trust-item" data-reveal>
+          ${icon(ic)}
+          <div>
+            <h3>${esc(t)}</h3>
+            <p>${esc(d)}</p>
+          </div>
+        </div>`).join('\n');
   const cards = PRODUCTS.map(p => `
         <article class="product-card" data-reveal>
           <a class="thumb" href="${p.slug}/index.html" aria-label="${esc(p.name)}">
@@ -236,6 +288,14 @@ function buildHome() {
     ogImage: `${SITE}/assets/og-home.png`,
     accent: null,
     depth: 0,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: OWNER.handle,
+      url: `${SITE}/`,
+      description: OWNER.blurb,
+      author: { '@type': 'Person', name: OWNER.name, url: GH_USER },
+    },
   })}
 ${siteHeader(0, 'products')}
 
@@ -260,7 +320,33 @@ ${siteHeader(0, 'products')}
   </div>
 </section>
 
-<main>
+<main id="main">
+  <section class="section" id="how">
+    <div class="wrap">
+      <header class="section-head" data-reveal>
+        <p class="eyebrow">How it works</p>
+        <h2 class="display-2">Three steps, then it is just there</h2>
+        <p class="lede">No connecting accounts, no waiting for a sync. The whole loop runs on files you already have.</p>
+      </header>
+      <ol class="steps-flow">
+${steps}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="privacy">
+    <div class="wrap">
+      <header class="section-head" data-reveal>
+        <p class="eyebrow">Where your data goes</p>
+        <h2 class="display-2">Nowhere</h2>
+        <p class="lede">Claims worth checking rather than taking on faith — every one of them is visible in the source.</p>
+      </header>
+      <div class="trust-grid">
+${trust}
+      </div>
+    </div>
+  </section>
+
   <section class="section" id="products">
     <div class="wrap">
       <header class="section-head" data-reveal>
@@ -370,6 +456,19 @@ ${plates}
     ogImage: `${SITE}/${p.slug}/assets/og-cover.png`,
     accent: p.accent,
     depth: 1,
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      name: p.name,
+      applicationCategory: 'FinanceApplication',
+      operatingSystem: 'Windows 10, Windows 11',
+      softwareVersion: p.version,
+      description: p.summary,
+      url: `${SITE}/${p.slug}/`,
+      downloadUrl: p.releases,
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+      author: { '@type': 'Person', name: OWNER.name, url: GH_USER },
+    },
   })}
 ${siteHeader(1, 'products')}
 
@@ -396,7 +495,7 @@ ${siteHeader(1, 'products')}
   </div>
 </section>
 
-<main>
+<main id="main">
   <section class="section">
     <div class="wrap">
       <header class="section-head" data-reveal>
@@ -509,7 +608,7 @@ ${renderBlocks(s.blocks)}
 ${siteHeader(1, 'docs')}
 ${pageHead(d.eyebrow, d.title, d.lede)}
 
-<main class="section" style="padding-top:clamp(2rem,4vw,3rem)">
+<main id="main" class="section" style="padding-top:clamp(2rem,4vw,3rem)">
   <div class="wrap doc-layout">
     <aside class="doc-toc">
       <p class="toc-label">On this page</p>
@@ -573,7 +672,7 @@ ${items.map(i => `            <li>${esc(i)}</li>`).join('\n')}
 ${siteHeader(1, 'changelog')}
 ${pageHead(c.eyebrow, c.title, c.lede)}
 
-<main class="section prose" style="padding-top:clamp(2rem,4vw,3rem)">
+<main id="main" class="section prose" style="padding-top:clamp(2rem,4vw,3rem)">
   <div class="wrap-narrow">
 ${releases}
   </div>
@@ -595,7 +694,7 @@ function buildAbout(a) {
 ${siteHeader(1, 'about')}
 ${pageHead(a.eyebrow, a.title, a.lede)}
 
-<main class="section prose" style="padding-top:clamp(2rem,4vw,3rem)">
+<main id="main" class="section prose" style="padding-top:clamp(2rem,4vw,3rem)">
   <div class="wrap-narrow">
     <section>
 ${renderBlocks(a.blocks)}
@@ -614,10 +713,45 @@ ${REVEAL_JS}
 `;
 }
 
+/* ── 404 ───────────────────────────────────────────────────── */
+function build404() {
+  return `${head({
+    title: `Page not found — ${OWNER.handle}`,
+    desc: 'That page does not exist.',
+    url: `${SITE}/404.html`,
+    ogImage: `${SITE}/assets/og-home.png`,
+    accent: null,
+    depth: 0,
+  })}
+${siteHeader(0, null)}
+
+<main id="main" class="section" style="padding-block:clamp(4rem,12vw,8rem)">
+  <div class="wrap-narrow">
+    <p class="eyebrow">404</p>
+    <h1 class="display-2">That page is not here</h1>
+    <p class="lede" style="margin-top:1rem">
+      The link may be out of date, or the page may have been renamed. Everything
+      below still exists.
+    </p>
+    <div style="display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2rem">
+      <a class="btn btn-primary" href="index.html">Back to the start</a>
+      <a class="btn btn-ghost" href="${PRODUCTS[0].slug}/index.html">${esc(PRODUCTS[0].name)}</a>
+      <a class="btn btn-ghost" href="docs/index.html">Documentation</a>
+    </div>
+  </div>
+</main>
+
+${siteFooter(0)}
+${REVEAL_JS}
+</body>
+</html>
+`;
+}
+
 /* ── Build ─────────────────────────────────────────────────── */
 (async () => {
   // Clean the generated surfaces, keep repo metadata.
-  for (const entry of ['index.html', 'assets']) {
+  for (const entry of ['index.html', '404.html', 'sitemap.xml', 'robots.txt', 'assets']) {
     fs.rmSync(path.join(OUT, entry), { recursive: true, force: true });
   }
   for (const p of PRODUCTS) fs.rmSync(path.join(OUT, p.slug), { recursive: true, force: true });
@@ -687,6 +821,29 @@ ${REVEAL_JS}
 
   fs.writeFileSync(path.join(OUT, 'index.html'), externalize(buildHome()), 'utf8');
   fs.writeFileSync(path.join(OUT, '.nojekyll'), '', 'utf8');
+
+  // A 404 page, a sitemap and a robots file - the plumbing a real site has.
+  fs.writeFileSync(path.join(OUT, '404.html'), externalize(build404()), 'utf8');
+
+  const urls = [
+    '/',
+    ...PRODUCTS.map(p => `/${p.slug}/`),
+    ...[DOCS, CHANGELOG, ABOUT].map(g => `/${g.slug}/`),
+  ];
+  const today = new Date().toISOString().slice(0, 10);
+  const sitemap = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ...urls.map(u => `  <url><loc>${SITE}${u}</loc><lastmod>${today}</lastmod></url>`),
+    '</urlset>',
+    '',
+  ].join('\n');
+  fs.writeFileSync(path.join(OUT, 'sitemap.xml'), sitemap, 'utf8');
+
+  fs.writeFileSync(path.join(OUT, 'robots.txt'),
+    `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`, 'utf8');
+
+  console.log('404.html, sitemap.xml (' + urls.length + ' urls), robots.txt');
 
   console.log('index.html'.padEnd(34), (fs.statSync(path.join(OUT, 'index.html')).size / 1024).toFixed(0), 'KB');
   console.log('products  ', PRODUCTS.length);

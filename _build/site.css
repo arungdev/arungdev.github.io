@@ -87,6 +87,61 @@
   }
 }
 
+/* Manual theme choice. These mirror the palettes above so the toggle can
+   override the system preference in either direction. */
+:root[data-theme="dark"] {
+  --ground:      #08070F;
+  --ground-2:    #0E0D1B;
+  --surface:     #131226;
+  --ink:         #F1EFFA;
+  --ink-2:       #C9C5DD;
+  --muted:       #918DAE;
+  --line:        #241F3E;
+  --line-strong: #322C52;
+
+  --accent:      #8B84F7;
+  --accent-2:    #A99CFF;
+  --accent-ink:  #0B0918;
+  --accent-wash: #1A1637;
+
+  --navy:        #0F0D26;
+  --navy-2:      #191441;
+  --navy-deep:   #06050F;
+
+  --ok:          #35BC94;
+  --ok-wash:     #10241F;
+
+  --shadow-xs: 0 1px 2px rgba(0,0,0,.5);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.5), 0 6px 16px -6px rgba(0,0,0,.6);
+  --shadow:    0 1px 2px rgba(0,0,0,.5), 0 16px 36px -14px rgba(0,0,0,.75);
+  --shadow-lg: 0 1px 2px rgba(0,0,0,.5), 0 34px 70px -24px rgba(0,0,0,.85);
+}
+
+:root[data-theme="light"] {
+  --ground: #FCFCFE;
+  --ground-2: #F4F3F9;
+  --surface: #FFFFFF;
+  --ink: #100F1E;
+  --ink-2: #3A3752;
+  --muted: #6E6A88;
+  --line: #E7E5F0;
+  --line-strong: #D6D3E4;
+  --accent: #5B54F0;
+  --accent-2: #8B7CFF;
+  --accent-ink: #FFFFFF;
+  --accent-wash: #F0EEFE;
+  --navy: #17143A;
+  --navy-2: #241F5C;
+  --navy-deep: #0A0820;
+  --ok: #0E8A6B;
+  --ok-wash: #E6F5F0;
+  --shadow-xs: 0 1px 2px rgba(16,15,30,.05);
+  --shadow-sm: 0 1px 2px rgba(16,15,30,.04), 0 4px 12px -4px rgba(16,15,30,.10);
+  --shadow: 0 1px 2px rgba(16,15,30,.04), 0 12px 28px -10px rgba(16,15,30,.16);
+  --shadow-lg: 0 1px 2px rgba(16,15,30,.04), 0 28px 60px -20px rgba(16,15,30,.26);
+}
+
+
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
@@ -785,8 +840,14 @@ ol.steps li::before {
 
 /* The gradient phrase in the headline breathes rather than sitting flat. */
 .grad {
-  background: linear-gradient(100deg, var(--accent-2) 8%, #6EE7F0 46%, var(--accent-2) 84%);
+  /* background-image, not the background shorthand: the shorthand resets
+     background-clip to border-box and the text renders as a solid block. */
+  background-image: linear-gradient(100deg, var(--accent-2) 8%, #6EE7F0 46%, var(--accent-2) 84%);
   background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
   animation: shimmer 9s linear infinite;
 }
 
@@ -856,3 +917,112 @@ ol.steps li::before {
 @media (prefers-reduced-motion: reduce) {
   .progress { display: none; }
 }
+
+/* ── Accessibility ────────────────────────────────────────── */
+.skip {
+  position: fixed;
+  left: 0;
+  top: 0;
+  /* Moved off-screen vertically rather than parked at a huge negative left,
+     which keeps it out of horizontal layout calculations entirely. */
+  transform: translateY(-200%);
+  z-index: 100;
+  background: var(--accent);
+  color: var(--accent-ink);
+  padding: .75rem 1.15rem;
+  border-radius: 0 0 var(--r-sm) 0;
+  font-weight: 600;
+  text-decoration: none;
+}
+.skip:focus { transform: none; }
+
+/* ── Icons ────────────────────────────────────────────────── */
+.icon {
+  width: 22px; height: 22px; flex: none;
+  fill: none; stroke: var(--accent); stroke-width: 1.6;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+
+/* ── Theme toggle ─────────────────────────────────────────── */
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 34px; height: 34px;
+  margin-left: .35rem;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: var(--r-xs);
+  color: var(--muted);
+  cursor: pointer;
+  flex: none;
+  transition: color .18s var(--ease), border-color .18s var(--ease), background .18s var(--ease);
+}
+.theme-toggle:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-wash); }
+.theme-toggle svg {
+  grid-area: 1 / 1;
+  width: 16px; height: 16px;
+  fill: none; stroke: currentColor; stroke-width: 1.8;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+/* Show the icon for the theme you would switch TO. */
+.theme-toggle .i-sun { display: none; }
+.theme-toggle .i-moon { display: block; }
+@media (prefers-color-scheme: dark) {
+  .theme-toggle .i-sun { display: block; }
+  .theme-toggle .i-moon { display: none; }
+}
+:root[data-theme="dark"] .theme-toggle .i-sun { display: block; }
+:root[data-theme="dark"] .theme-toggle .i-moon { display: none; }
+:root[data-theme="light"] .theme-toggle .i-sun { display: none; }
+:root[data-theme="light"] .theme-toggle .i-moon { display: block; }
+
+/* ── How it works ─────────────────────────────────────────── */
+.steps-flow {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  counter-reset: flow;
+}
+.step {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: .55rem;
+  transition: border-color .2s var(--ease), transform .2s var(--ease), box-shadow .2s var(--ease);
+}
+.step:hover { transform: translateY(-3px); border-color: var(--line-strong); box-shadow: var(--shadow-sm); }
+.step-n {
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .12em;
+  color: var(--muted);
+}
+.step-ic {
+  display: grid;
+  place-items: center;
+  width: 42px; height: 42px;
+  border-radius: 11px;
+  background: var(--accent-wash);
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
+  margin-bottom: .35rem;
+}
+.step h3 { font-size: 1.08rem; letter-spacing: -.018em; }
+.step p { margin: 0; color: var(--muted); font-size: .94rem; }
+
+/* ── Trust grid ───────────────────────────────────────────── */
+.trust-grid {
+  display: grid;
+  gap: 1.6rem 2.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+}
+.trust-item { display: flex; gap: 1rem; align-items: flex-start; }
+.trust-item h3 { font-size: 1.02rem; letter-spacing: -.015em; margin-bottom: .3rem; }
+.trust-item p { margin: 0; color: var(--muted); font-size: .93rem; }
