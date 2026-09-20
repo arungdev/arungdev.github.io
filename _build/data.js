@@ -94,28 +94,46 @@ const PRODUCTS = [
       ],
     ],
 
-    downloads: [
+    // Release history with multi-version support. First entry is treated as the latest.
+    versions: [
       {
-        kind: "primary",
-        label: "Download for Windows",
-        sub: "Installer · v1.0.0 · 64-bit",
-        file: "BankStatementAnalytics-Setup-1.0.0.exe",
-        size: "66.2 MB",
-        sha256:
-          "392dcdfee65cfd30458946bdb171f039063b06eac40d033ade6a0fadb6493db4",
-        note: "Installs to Program Files and registers a background service, so the app is running whenever your PC is. Opens at localhost:5080 from the desktop shortcut. Needs administrator rights to install.",
-      },
-      {
-        kind: "secondary",
-        label: "Portable build",
-        sub: "ZIP · v1.0.0 · no installer",
-        file: "BankStatementAnalytics-Portable-1.0.0.zip",
-        size: "100.6 MB",
-        sha256:
-          "582bff5a27978af303e50313ed7f085b5d3f5b0622d00e9703b95f2f5b0a5f87",
-        note: "Unzip and run the executable directly. Nothing is written outside the folder you extract it to. No service is registered, so the app runs only while the window is open.",
+        version: "1.0.0",
+        date: "2026-08-02",
+        status: "Latest",
+        isLatest: true,
+        notesUrl: `${GH_USER}/BankStatementAnalytics/releases/tag/v1.0.0`,
+        assetBase: `${GH_USER}/BankStatementAnalytics/releases/download/v1.0.0`,
+        summary:
+          "Initial public release: statement import for three banks (.txt, .csv, .pdf), categorization, trends, budgets, bills, investments, and reports.",
+        downloads: [
+          {
+            kind: "primary",
+            label: "Download for Windows",
+            sub: "Installer · v1.0.0 · 64-bit",
+            file: "BankStatementAnalytics-Setup-1.0.0.exe",
+            size: "66.2 MB",
+            sha256:
+              "582bff5a27978af303e50313ed7f085b5d3f5b0622d00e9703b95f2f5b0a5f87",
+            note: "Installs to Program Files and registers a background service, so the app is running whenever your PC is. Opens at localhost:5080 from the desktop shortcut. Needs administrator rights to install.",
+          },
+          {
+            kind: "secondary",
+            label: "Portable build",
+            sub: "ZIP · v1.0.0 · no installer",
+            file: "BankStatementAnalytics-Portable-1.0.0.zip",
+            size: "100.6 MB",
+            sha256:
+              "392dcdfee65cfd30458946bdb171f039063b06eac40d033ade6a0fadb6493db4",
+            note: "Unzip and run the executable directly. Nothing is written outside the folder you extract it to. No service is registered, so the app runs only while the window is open.",
+          },
+        ],
       },
     ],
+
+    // Backward-compatible getter pointing to the latest version's downloads.
+    get downloads() {
+      return this.versions[0].downloads;
+    },
 
     requirements: [
       ["Operating system", "Windows 10 or 11, 64-bit"],

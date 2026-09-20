@@ -1061,6 +1061,139 @@ ol.steps li::before {
   overflow-wrap: anywhere;
 }
 
+/* ── Multi-version releases ───────────────────────────────── */
+.version-section {
+  margin-top: 3.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--line);
+}
+.version-section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+.version-section-head h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+.version-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.version-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 1.4rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.version-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+}
+.version-card-title {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  flex-wrap: wrap;
+}
+.version-tag {
+  font-family: var(--mono);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.version-date {
+  font-size: .82rem;
+  color: var(--muted);
+}
+.version-summary {
+  margin: 0;
+  color: var(--muted);
+  font-size: .92rem;
+  line-height: 1.55;
+}
+.version-downloads {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: .85rem;
+}
+.version-dl-item {
+  background: var(--ground);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  padding: .85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+}
+.version-dl-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+}
+.version-dl-info {
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+}
+.version-dl-name {
+  font-weight: 600;
+  font-size: .88rem;
+  color: var(--ink);
+}
+.version-dl-size {
+  font-size: .78rem;
+  color: var(--muted);
+  font-family: var(--mono);
+}
+.version-dl-item .btn {
+  align-self: center;
+  padding: .45rem .85rem;
+  font-size: .85rem;
+}
+.version-checksum {
+  margin: 0;
+  font-size: .8rem;
+}
+.version-checksum summary {
+  cursor: pointer;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .05em;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+}
+.version-checksum summary:hover {
+  color: var(--accent);
+}
+.version-checksum code {
+  display: block;
+  margin-top: .4rem;
+  font-family: var(--mono);
+  font-size: .72rem;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xs);
+  padding: .35rem .5rem;
+  overflow-wrap: anywhere;
+}
+
 /* ── Breadcrumbs ──────────────────────────────────────────── */
 .crumbs {
   border-bottom: 1px solid var(--line);

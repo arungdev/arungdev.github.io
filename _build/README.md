@@ -42,6 +42,15 @@ Then commit and push — GitHub Pages serves the repo root.
 social card. `accent` is the product's colour; the dark theme brightens it
 automatically.
 
+## Adding a new release / version
+
+To publish a new version for a product:
+1. In `_build/data.js`, prepend a new entry to the product's `versions` array with `version`, `date`, `status: "Latest"`, `notesUrl`, `assetBase`, and `downloads` (Installer & Portable filenames, sizes, and SHA-256 checksums).
+2. Set `version` at the product level to the new version tag.
+3. Mark older version entries in the array as `status: "Archived"` or `"Previous"` (or omit `isLatest: true`).
+4. In `_build/pages.js`, prepend the release entry and release notes to `CHANGELOG.releases`.
+5. Run `node build.js`. The latest release becomes the primary download card, while all versions appear in the "All Releases & Versions" archive.
+
 ## Things worth knowing
 
 - **Screenshot dimensions.** Plate images are emitted with `width="2400"

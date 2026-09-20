@@ -41,14 +41,33 @@ const DL_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1a1 1 0
 // Content-Disposition: attachment, so the click downloads without navigating —
 // which is why it stays in the same tab. The explicit target also stops
 // externalize() from turning it into a _blank that opens an empty tab.
-const dlEntry = (p, kind) => p.downloads.find(x => x.kind === kind) || p.downloads[0];
-const dlHref  = (p, kind) => {
-  const d = dlEntry(p, kind);
-  return (p.assetBase && d && d.file) ? `${p.assetBase}/${d.file}` : p.releases;
+const getVersions = p => (p.versions && p.versions.length) ? p.versions : [{
+  version: p.version,
+  date: '',
+  status: 'Latest',
+  isLatest: true,
+  notesUrl: p.releases,
+  assetBase: p.assetBase,
+  downloads: p.downloads,
+}];
+const getLatestVersion = p => getVersions(p)[0];
+
+const dlEntry = (p, kind, ver) => {
+  const v = ver || getLatestVersion(p);
+  const dls = (v && v.downloads) ? v.downloads : p.downloads;
+  return dls.find(x => x.kind === kind) || dls[0];
 };
-const dlAttrs = (p, kind) => {
-  const d = dlEntry(p, kind);
-  return (p.assetBase && d && d.file) ? ' download target="_self"' : '';
+const dlHref  = (p, kind, ver) => {
+  const v = ver || getLatestVersion(p);
+  const d = dlEntry(p, kind, v);
+  const base = (v && v.assetBase) ? v.assetBase : p.assetBase;
+  return (base && d && d.file) ? `${base}/${d.file}` : p.releases;
+};
+const dlAttrs = (p, kind, ver) => {
+  const v = ver || getLatestVersion(p);
+  const d = dlEntry(p, kind, v);
+  const base = (v && v.assetBase) ? v.assetBase : p.assetBase;
+  return (base && d && d.file) ? ' download target="_self"' : '';
 };
 
 // Shared <head>. `depth` is how many levels below root the page sits.
@@ -458,8 +477,11 @@ ${plates}
           <p>${esc(d)}</p>
         </div>`).join('\n');
 
-  const dls = p.downloads.map(d => `        <div class="dl-card" data-reveal>
-          <a class="btn ${d.kind === 'primary' ? 'btn-primary' : 'btn-ghost'}" href="${dlHref(p, d.kind)}"${dlAttrs(p, d.kind)}>
+  const latest = getLatestVersion(p);
+  const versions = getVersions(p);
+
+  const dls = latest.downloads.map(d => `        <div class="dl-card" data-reveal>
+          <a class="btn ${d.kind === 'primary' ? 'btn-primary' : 'btn-ghost'}" href="${dlHref(p, d.kind, latest)}"${dlAttrs(p, d.kind, latest)}>
             ${DL_ICON}<span>${esc(d.label)}<span class="sub">${esc(d.sub)}</span></span>
           </a>
           <p>${esc(d.note)}</p>
@@ -469,6 +491,53 @@ ${plates}
             <div class="dl-sum"><dt>SHA-256</dt><dd><code>${esc(d.sha256)}</code></dd></div>
           </dl>` : ''}
         </div>`).join('\n');
+
+  const versionCards = versions.map(v => {
+    const items = v.downloads.map(d => `          <div class="version-dl-item">
+            <div class="version-dl-top">
+              <div class="version-dl-info">
+                <span class="version-dl-name">${esc(d.label)}</span>
+                <span class="version-dl-size">${esc(d.file)} · ${esc(d.size)}</span>
+              </div>
+              <a class="btn ${d.kind === 'primary' ? 'btn-primary' : 'btn-ghost'}" href="${dlHref(p, d.kind, v)}"${dlAttrs(p, d.kind, v)}>
+                ${DL_ICON}${d.kind === 'primary' ? 'Setup' : 'Portable'}
+              </a>
+            </div>
+            ${d.sha256 ? `<details class="version-checksum">
+              <summary>SHA-256 Checksum</summary>
+              <code>${esc(d.sha256)}</code>
+            </details>` : ''}
+          </div>`).join('\n');
+
+    return `        <article class="version-card" data-reveal>
+          <div class="version-card-head">
+            <div class="version-card-title">
+              <span class="version-tag">v${esc(v.version)}</span>
+              <span class="badge ${v.isLatest ? '' : 'badge-neutral'}">${esc(v.status || (v.isLatest ? 'Latest' : 'Archived'))}</span>
+              ${v.date ? `<span class="version-date">Released ${esc(v.date)}</span>` : ''}
+            </div>
+            ${v.notesUrl ? `<a class="btn btn-ghost" style="padding:.35rem .75rem;font-size:.82rem" href="${esc(v.notesUrl)}">Release notes</a>` : ''}
+          </div>
+          ${v.summary ? `<p class="version-summary">${esc(v.summary)}</p>` : ''}
+          <div class="version-downloads">
+${items}
+          </div>
+        </article>`;
+  }).join('\n');
+
+  const versionsSection = `
+      <div class="version-section" id="all-versions">
+        <div class="version-section-head">
+          <div>
+            <h3>All Releases & Versions</h3>
+            <p class="note" style="margin-top:.25rem">Download any current or previous build with verified checksums.</p>
+          </div>
+          <a class="btn btn-ghost" href="${p.releases}" style="font-size:.85rem">View on GitHub</a>
+        </div>
+        <div class="version-list">
+${versionCards}
+        </div>
+      </div>`;
 
   const reqs = p.requirements.map(([k, v]) => `          <tr><th scope="row">${esc(k)}</th><td>${esc(v)}</td></tr>`).join('\n');
   const tourNav = p.sections.map(s => `<a href="#${s.id}">${esc(s.eyebrow)}</a>`).join('');
@@ -486,11 +555,11 @@ ${plates}
       name: p.name,
       applicationCategory: 'FinanceApplication',
       operatingSystem: 'Windows 10, Windows 11',
-      softwareVersion: p.version,
+      softwareVersion: latest.version,
       description: p.summary,
       url: `${SITE}/${p.slug}/`,
-      downloadUrl: dlHref(p, 'primary'),
-      fileSize: dlEntry(p, 'primary').size,
+      downloadUrl: dlHref(p, 'primary', latest),
+      fileSize: dlEntry(p, 'primary', latest).size,
       offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
       author: { '@type': 'Person', name: OWNER.name, url: GH_USER },
     },
@@ -501,12 +570,12 @@ ${crumbs(1, [['arungdev', 'index.html'], ['Products', 'index.html#products'], [p
 <section class="hero">
   <div class="wrap hero-split">
     <div class="hero-copy">
-      <span class="pill"><span class="spark"></span>v${esc(p.version)} · ${esc(p.platform)}</span>
+      <span class="pill"><span class="spark"></span>v${esc(latest.version)} · ${esc(p.platform)}</span>
       <h1 class="display-1">${esc(p.tagline)}</h1>
       <p class="lede">${esc(p.summary)}</p>
       <div class="hero-actions">
-        <a class="btn btn-light btn-lg" href="${dlHref(p, 'primary')}"${dlAttrs(p, 'primary')}>
-          ${DL_ICON}<span>${esc(p.downloads[0].label)}<span class="sub">${esc(p.downloads[0].sub)}</span></span>
+        <a class="btn btn-light btn-lg" href="${dlHref(p, 'primary', latest)}"${dlAttrs(p, 'primary', latest)}>
+          ${DL_ICON}<span>${esc(latest.downloads[0].label)}<span class="sub">${esc(latest.downloads[0].sub)}</span></span>
         </a>
         <a class="btn btn-outline-light btn-lg" href="${p.repo}">${GH_ICON}View source</a>
       </div>
@@ -540,6 +609,9 @@ ${highlights}
         <p class="eyebrow">Download</p>
         <h2 class="display-2">Install it</h2>
         <p class="lede">Two ways to run it. Both are the same application — the installer just sets it up to start with Windows.</p>
+        <div style="margin-top:.75rem">
+          <a href="#all-versions" class="btn btn-ghost" style="font-size:.82rem;padding:.3rem .75rem">All versions & checksums ↓</a>
+        </div>
       </header>
       <div class="dl-grid">
 ${dls}
@@ -558,6 +630,8 @@ ${reqs}
         Windows SmartScreen may warn on first run because the build is not code-signed.
         Choose "More info" then "Run anyway" if you trust the source.
       </p>
+
+${versionsSection}
     </div>
   </section>
 
@@ -680,7 +754,15 @@ ${REVEAL_JS}
 }
 
 function buildChangelog(c, product) {
-  const releases = c.releases.map(r => `      <article class="release" data-reveal>
+  const versions = getVersions(product);
+  const releases = c.releases.map(r => {
+    const verMatch = versions.find(v => v.version === r.version);
+    const downloadHref = verMatch ? dlHref(product, 'primary', verMatch) : `${product.repo}/releases/tag/v${r.version}`;
+    const downloadAttrs = verMatch ? dlAttrs(product, 'primary', verMatch) : '';
+    const portableHref = verMatch ? dlHref(product, 'secondary', verMatch) : null;
+    const portableAttrs = verMatch ? dlAttrs(product, 'secondary', verMatch) : '';
+
+    return `      <article class="release" data-reveal>
         <div class="release-head">
           <span class="release-ver">v${esc(r.version)}</span>
           <span class="badge">${esc(r.status)}</span>
@@ -693,10 +775,13 @@ ${r.groups.map(([g, items]) => `        <div class="release-group">
 ${items.map(i => `            <li>${esc(i)}</li>`).join('\n')}
           </ul>
         </div>`).join('\n')}
-        <div style="margin-top:1.75rem">
-          <a class="btn btn-primary" href="${dlHref(product, 'primary')}"${dlAttrs(product, 'primary')}>${DL_ICON}Download v${esc(r.version)}</a>
+        <div style="display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.75rem">
+          <a class="btn btn-primary" href="${downloadHref}"${downloadAttrs}>${DL_ICON}Download Setup (v${esc(r.version)})</a>
+          ${portableHref ? `<a class="btn btn-ghost" href="${portableHref}"${portableAttrs}>${DL_ICON}Portable (.zip)</a>` : ''}
+          <a class="btn btn-ghost" href="${product.repo}/releases/tag/v${esc(r.version)}">Release notes</a>
         </div>
-      </article>`).join('\n\n');
+      </article>`;
+  }).join('\n\n');
 
   return `${head({
     title: `Changelog — ${OWNER.handle}`,
