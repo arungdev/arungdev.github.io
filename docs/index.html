@@ -316,6 +316,26 @@
     targets.forEach(function (el) { io.observe(el); });
   }
 
+  // Clipboard copy for SHA-256 and other checksums with visual feedback.
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.copy-btn');
+    if (!btn) return;
+    var text = btn.getAttribute('data-copy');
+    if (!text) return;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        var span = btn.querySelector('span');
+        var orig = span ? span.textContent : 'Copy';
+        btn.classList.add('copied');
+        if (span) span.textContent = 'Copied!';
+        setTimeout(function () {
+          btn.classList.remove('copied');
+          if (span) span.textContent = orig;
+        }, 2000);
+      });
+    }
+  });
+
   // Reading progress along the top. Skipped entirely when motion is reduced.
   if (!reduce) {
     var bar = document.createElement('div');

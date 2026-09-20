@@ -243,6 +243,26 @@ const REVEAL_JS = `
     targets.forEach(function (el) { io.observe(el); });
   }
 
+  // Clipboard copy for SHA-256 and other checksums with visual feedback.
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.copy-btn');
+    if (!btn) return;
+    var text = btn.getAttribute('data-copy');
+    if (!text) return;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        var span = btn.querySelector('span');
+        var orig = span ? span.textContent : 'Copy';
+        btn.classList.add('copied');
+        if (span) span.textContent = 'Copied!';
+        setTimeout(function () {
+          btn.classList.remove('copied');
+          if (span) span.textContent = orig;
+        }, 2000);
+      });
+    }
+  });
+
   // Reading progress along the top. Skipped entirely when motion is reduced.
   if (!reduce) {
     var bar = document.createElement('div');
@@ -265,13 +285,15 @@ const REVEAL_JS = `
 
 const LIGHTBOX_JS = `
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged screenshot">
+  <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close enlarged screenshot">&times;</button>
   <img id="lightbox-img" alt="" />
-  <span class="lightbox-hint">Click anywhere or press Esc to close</span>
+  <span class="lightbox-hint">Click anywhere, press Esc, or click &times; to close</span>
 </div>
 <script>
 (function () {
   var box = document.getElementById('lightbox');
   var boxImg = document.getElementById('lightbox-img');
+  var boxClose = document.getElementById('lightbox-close');
   var last = null;
   document.querySelectorAll('.shot').forEach(function (btn) {
     btn.addEventListener('click', function () {
@@ -284,6 +306,7 @@ const LIGHTBOX_JS = `
     box.classList.remove('open'); boxImg.removeAttribute('src');
     if (last) { last.focus(); last = null; }
   }
+  if (boxClose) boxClose.addEventListener('click', function (e) { e.stopPropagation(); close(); });
 
   // Keep the sticky tour bar showing which section is on screen.
   var tabs = [].slice.call(document.querySelectorAll('.tour-bar .tour-nav a'));
@@ -312,8 +335,10 @@ function buildHome() {
   const hero = PRODUCTS[0]; // newest/flagship product supplies the hero shot
   const steps = hero.howItWorks.map(([ic, t, d], i) => `
         <li class="step" data-reveal>
-          <span class="step-n">${String(i + 1).padStart(2, '0')}</span>
-          <span class="step-ic">${icon(ic)}</span>
+          <div class="step-top">
+            <span class="step-ic">${icon(ic)}</span>
+            <span class="step-n">Step ${String(i + 1).padStart(2, '0')}</span>
+          </div>
           <h3>${esc(t)}</h3>
           <p>${esc(d)}</p>
         </li>`).join('\n');
@@ -376,8 +401,12 @@ ${siteHeader(0, 'products')}
     </div>
     <div class="frame">
       <div class="frame-bar" aria-hidden="true">
-        <i></i><i></i><i></i>
-        <span class="frame-url">localhost:5080</span>
+        <span class="frame-dots"><i></i><i></i><i></i></span>
+        <div class="frame-url-wrap">
+          <svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" opacity="0.6"><path d="M8 1a2 2 0 0 0-2 2v2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2Zm1 4H7V3a1 1 0 0 1 2 0v2Z"/></svg>
+          <span class="frame-url">http://localhost:5080</span>
+        </div>
+        <span class="frame-status"><span class="pulse-dot"></span>Localhost</span>
       </div>
       <img src="${hero.slug}/assets/${hero.cover}.webp" alt="${esc(hero.name)} running locally" width="2400" height="1500" decoding="async" />
     </div>
@@ -480,7 +509,8 @@ ${plates}
   const latest = getLatestVersion(p);
   const versions = getVersions(p);
 
-  const dls = latest.downloads.map(d => `        <div class="dl-card" data-reveal>
+  const dls = latest.downloads.map(d => `        <div class="dl-card ${d.kind === 'primary' ? 'dl-featured' : ''}" data-reveal>
+          ${d.kind === 'primary' ? '<span class="dl-featured-badge">Recommended</span>' : ''}
           <a class="btn ${d.kind === 'primary' ? 'btn-primary' : 'btn-ghost'}" href="${dlHref(p, d.kind, latest)}"${dlAttrs(p, d.kind, latest)}>
             ${DL_ICON}<span>${esc(d.label)}<span class="sub">${esc(d.sub)}</span></span>
           </a>
@@ -488,7 +518,16 @@ ${plates}
           ${d.size ? `<dl class="dl-meta">
             <div><dt>Size</dt><dd>${esc(d.size)}</dd></div>
             <div><dt>File</dt><dd>${esc(d.file)}</dd></div>
-            <div class="dl-sum"><dt>SHA-256</dt><dd><code>${esc(d.sha256)}</code></dd></div>
+            <div class="dl-sum">
+              <dt>SHA-256</dt>
+              <dd>
+                <code>${esc(d.sha256)}</code>
+                <button class="copy-btn" type="button" data-copy="${esc(d.sha256)}" aria-label="Copy SHA-256 Checksum">
+                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"/></svg>
+                  <span>Copy</span>
+                </button>
+              </dd>
+            </div>
           </dl>` : ''}
         </div>`).join('\n');
 
@@ -505,7 +544,13 @@ ${plates}
             </div>
             ${d.sha256 ? `<details class="version-checksum">
               <summary>SHA-256 Checksum</summary>
-              <code>${esc(d.sha256)}</code>
+              <div style="display:flex;align-items:center;gap:.5rem;margin-top:.4rem;flex-wrap:wrap">
+                <code>${esc(d.sha256)}</code>
+                <button class="copy-btn" type="button" data-copy="${esc(d.sha256)}" aria-label="Copy SHA-256 Checksum">
+                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"/></svg>
+                  <span>Copy</span>
+                </button>
+              </div>
             </details>` : ''}
           </div>`).join('\n');
 
@@ -582,8 +627,12 @@ ${crumbs(1, [['arungdev', 'index.html'], ['Products', 'index.html#products'], [p
     </div>
     <div class="frame">
       <div class="frame-bar" aria-hidden="true">
-        <i></i><i></i><i></i>
-        <span class="frame-url">localhost:5080</span>
+        <span class="frame-dots"><i></i><i></i><i></i></span>
+        <div class="frame-url-wrap">
+          <svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" opacity="0.6"><path d="M8 1a2 2 0 0 0-2 2v2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2Zm1 4H7V3a1 1 0 0 1 2 0v2Z"/></svg>
+          <span class="frame-url">http://localhost:5080</span>
+        </div>
+        <span class="frame-status"><span class="pulse-dot"></span>Localhost</span>
       </div>
       <img src="assets/${p.cover}.webp" alt="${esc(p.name)} running locally" width="2400" height="1500" decoding="async" />
     </div>

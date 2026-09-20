@@ -64,8 +64,12 @@
     </div>
     <div class="frame">
       <div class="frame-bar" aria-hidden="true">
-        <i></i><i></i><i></i>
-        <span class="frame-url">localhost:5080</span>
+        <span class="frame-dots"><i></i><i></i><i></i></span>
+        <div class="frame-url-wrap">
+          <svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" opacity="0.6"><path d="M8 1a2 2 0 0 0-2 2v2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2Zm1 4H7V3a1 1 0 0 1 2 0v2Z"/></svg>
+          <span class="frame-url">http://localhost:5080</span>
+        </div>
+        <span class="frame-status"><span class="pulse-dot"></span>Localhost</span>
       </div>
       <img src="bankstatementanalytics/assets/01-overview.webp" alt="Bank Statement Analytics running locally" width="2400" height="1500" decoding="async" />
     </div>
@@ -120,22 +124,28 @@
       <ol class="steps-flow">
 
         <li class="step" data-reveal>
-          <span class="step-n">01</span>
-          <span class="step-ic"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v10m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></span>
+          <div class="step-top">
+            <span class="step-ic"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v10m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></span>
+            <span class="step-n">Step 01</span>
+          </div>
           <h3>Export a statement</h3>
           <p>Download the statement your bank already offers — .txt, .csv or .pdf. No credentials are ever asked for.</p>
         </li>
 
         <li class="step" data-reveal>
-          <span class="step-n">02</span>
-          <span class="step-ic"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V11m0 0 4 4m-4-4-4 4M4 7V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2"/></svg></span>
+          <div class="step-top">
+            <span class="step-ic"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V11m0 0 4 4m-4-4-4 4M4 7V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2"/></svg></span>
+            <span class="step-n">Step 02</span>
+          </div>
           <h3>Drop it in</h3>
           <p>Pick the account, drop the file. Duplicates are skipped, so overlapping ranges are safe. Or point it at a folder and forget about it.</p>
         </li>
 
         <li class="step" data-reveal>
-          <span class="step-n">03</span>
-          <span class="step-ic"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10m5 10V4m5 16v-7m5 7V8"/></svg></span>
+          <div class="step-top">
+            <span class="step-ic"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10m5 10V4m5 16v-7m5 7V8"/></svg></span>
+            <span class="step-n">Step 03</span>
+          </div>
           <h3>See where the money went</h3>
           <p>Transactions are categorized by merchant on the way in. Trends, budgets, bills and monthly reports follow from there.</p>
         </li>
@@ -269,6 +279,26 @@
     }, { rootMargin: '0px 0px -8% 0px' });
     targets.forEach(function (el) { io.observe(el); });
   }
+
+  // Clipboard copy for SHA-256 and other checksums with visual feedback.
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.copy-btn');
+    if (!btn) return;
+    var text = btn.getAttribute('data-copy');
+    if (!text) return;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        var span = btn.querySelector('span');
+        var orig = span ? span.textContent : 'Copy';
+        btn.classList.add('copied');
+        if (span) span.textContent = 'Copied!';
+        setTimeout(function () {
+          btn.classList.remove('copied');
+          if (span) span.textContent = orig;
+        }, 2000);
+      });
+    }
+  });
 
   // Reading progress along the top. Skipped entirely when motion is reduced.
   if (!reduce) {

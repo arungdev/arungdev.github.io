@@ -68,8 +68,12 @@
     </div>
     <div class="frame">
       <div class="frame-bar" aria-hidden="true">
-        <i></i><i></i><i></i>
-        <span class="frame-url">localhost:5080</span>
+        <span class="frame-dots"><i></i><i></i><i></i></span>
+        <div class="frame-url-wrap">
+          <svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor" opacity="0.6"><path d="M8 1a2 2 0 0 0-2 2v2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2Zm1 4H7V3a1 1 0 0 1 2 0v2Z"/></svg>
+          <span class="frame-url">http://localhost:5080</span>
+        </div>
+        <span class="frame-status"><span class="pulse-dot"></span>Localhost</span>
       </div>
       <img src="assets/01-overview.webp" alt="Bank Statement Analytics running locally" width="2400" height="1500" decoding="async" />
     </div>
@@ -119,7 +123,8 @@
         </div>
       </header>
       <div class="dl-grid">
-        <div class="dl-card" data-reveal>
+        <div class="dl-card dl-featured" data-reveal>
+          <span class="dl-featured-badge">Recommended</span>
           <a class="btn btn-primary" href="https://github.com/arungdev/BankStatementAnalytics/releases/download/v2.0.0/BankStatementAnalytics-Setup-2.0.0.exe" download target="_self">
             <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1a1 1 0 0 1 1 1v6.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.42L7 8.59V2a1 1 0 0 1 1-1Zm-6 11a1 1 0 0 1 1 1v1h10v-1a1 1 0 1 1 2 0v1.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 14.5V13a1 1 0 0 1 1-1Z"/></svg><span>Download for Windows<span class="sub">Installer · v2.0.0 · 64-bit</span></span>
           </a>
@@ -127,10 +132,20 @@
           <dl class="dl-meta">
             <div><dt>Size</dt><dd>66.2 MB</dd></div>
             <div><dt>File</dt><dd>BankStatementAnalytics-Setup-2.0.0.exe</dd></div>
-            <div class="dl-sum"><dt>SHA-256</dt><dd><code>a5a404a1932938483887ebab629a1cd32cf01d920a14daf1fdf740fac408ed1d</code></dd></div>
+            <div class="dl-sum">
+              <dt>SHA-256</dt>
+              <dd>
+                <code>a5a404a1932938483887ebab629a1cd32cf01d920a14daf1fdf740fac408ed1d</code>
+                <button class="copy-btn" type="button" data-copy="a5a404a1932938483887ebab629a1cd32cf01d920a14daf1fdf740fac408ed1d" aria-label="Copy SHA-256 Checksum">
+                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"/></svg>
+                  <span>Copy</span>
+                </button>
+              </dd>
+            </div>
           </dl>
         </div>
-        <div class="dl-card" data-reveal>
+        <div class="dl-card " data-reveal>
+          
           <a class="btn btn-ghost" href="https://github.com/arungdev/BankStatementAnalytics/releases/download/v2.0.0/BankStatementAnalytics-Portable-2.0.0.zip" download target="_self">
             <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1a1 1 0 0 1 1 1v6.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.42L7 8.59V2a1 1 0 0 1 1-1Zm-6 11a1 1 0 0 1 1 1v1h10v-1a1 1 0 1 1 2 0v1.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 14.5V13a1 1 0 0 1 1-1Z"/></svg><span>Portable build<span class="sub">ZIP · v2.0.0 · no installer</span></span>
           </a>
@@ -138,7 +153,16 @@
           <dl class="dl-meta">
             <div><dt>Size</dt><dd>100.7 MB</dd></div>
             <div><dt>File</dt><dd>BankStatementAnalytics-Portable-2.0.0.zip</dd></div>
-            <div class="dl-sum"><dt>SHA-256</dt><dd><code>c3c9b83bb7ea283126d47f331a84edfbbf5db4fcbf9f7168db45891d1e50dc3e</code></dd></div>
+            <div class="dl-sum">
+              <dt>SHA-256</dt>
+              <dd>
+                <code>c3c9b83bb7ea283126d47f331a84edfbbf5db4fcbf9f7168db45891d1e50dc3e</code>
+                <button class="copy-btn" type="button" data-copy="c3c9b83bb7ea283126d47f331a84edfbbf5db4fcbf9f7168db45891d1e50dc3e" aria-label="Copy SHA-256 Checksum">
+                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"/></svg>
+                  <span>Copy</span>
+                </button>
+              </dd>
+            </div>
           </dl>
         </div>
       </div>
@@ -193,7 +217,13 @@
             </div>
             <details class="version-checksum">
               <summary>SHA-256 Checksum</summary>
-              <code>a5a404a1932938483887ebab629a1cd32cf01d920a14daf1fdf740fac408ed1d</code>
+              <div style="display:flex;align-items:center;gap:.5rem;margin-top:.4rem;flex-wrap:wrap">
+                <code>a5a404a1932938483887ebab629a1cd32cf01d920a14daf1fdf740fac408ed1d</code>
+                <button class="copy-btn" type="button" data-copy="a5a404a1932938483887ebab629a1cd32cf01d920a14daf1fdf740fac408ed1d" aria-label="Copy SHA-256 Checksum">
+                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"/></svg>
+                  <span>Copy</span>
+                </button>
+              </div>
             </details>
           </div>
           <div class="version-dl-item">
@@ -208,7 +238,13 @@
             </div>
             <details class="version-checksum">
               <summary>SHA-256 Checksum</summary>
-              <code>c3c9b83bb7ea283126d47f331a84edfbbf5db4fcbf9f7168db45891d1e50dc3e</code>
+              <div style="display:flex;align-items:center;gap:.5rem;margin-top:.4rem;flex-wrap:wrap">
+                <code>c3c9b83bb7ea283126d47f331a84edfbbf5db4fcbf9f7168db45891d1e50dc3e</code>
+                <button class="copy-btn" type="button" data-copy="c3c9b83bb7ea283126d47f331a84edfbbf5db4fcbf9f7168db45891d1e50dc3e" aria-label="Copy SHA-256 Checksum">
+                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"/></svg>
+                  <span>Copy</span>
+                </button>
+              </div>
             </details>
           </div>
           </div>
@@ -236,7 +272,13 @@
             </div>
             <details class="version-checksum">
               <summary>SHA-256 Checksum</summary>
-              <code>582bff5a27978af303e50313ed7f085b5d3f5b0622d00e9703b95f2f5b0a5f87</code>
+              <div style="display:flex;align-items:center;gap:.5rem;margin-top:.4rem;flex-wrap:wrap">
+                <code>582bff5a27978af303e50313ed7f085b5d3f5b0622d00e9703b95f2f5b0a5f87</code>
+                <button class="copy-btn" type="button" data-copy="582bff5a27978af303e50313ed7f085b5d3f5b0622d00e9703b95f2f5b0a5f87" aria-label="Copy SHA-256 Checksum">
+                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"/></svg>
+                  <span>Copy</span>
+                </button>
+              </div>
             </details>
           </div>
           <div class="version-dl-item">
@@ -251,7 +293,13 @@
             </div>
             <details class="version-checksum">
               <summary>SHA-256 Checksum</summary>
-              <code>392dcdfee65cfd30458946bdb171f039063b06eac40d033ade6a0fadb6493db4</code>
+              <div style="display:flex;align-items:center;gap:.5rem;margin-top:.4rem;flex-wrap:wrap">
+                <code>392dcdfee65cfd30458946bdb171f039063b06eac40d033ade6a0fadb6493db4</code>
+                <button class="copy-btn" type="button" data-copy="392dcdfee65cfd30458946bdb171f039063b06eac40d033ade6a0fadb6493db4" aria-label="Copy SHA-256 Checksum">
+                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z"/><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z"/></svg>
+                  <span>Copy</span>
+                </button>
+              </div>
             </details>
           </div>
           </div>
@@ -616,13 +664,15 @@
 </footer>
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged screenshot">
+  <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close enlarged screenshot">&times;</button>
   <img id="lightbox-img" alt="" />
-  <span class="lightbox-hint">Click anywhere or press Esc to close</span>
+  <span class="lightbox-hint">Click anywhere, press Esc, or click &times; to close</span>
 </div>
 <script>
 (function () {
   var box = document.getElementById('lightbox');
   var boxImg = document.getElementById('lightbox-img');
+  var boxClose = document.getElementById('lightbox-close');
   var last = null;
   document.querySelectorAll('.shot').forEach(function (btn) {
     btn.addEventListener('click', function () {
@@ -635,6 +685,7 @@
     box.classList.remove('open'); boxImg.removeAttribute('src');
     if (last) { last.focus(); last = null; }
   }
+  if (boxClose) boxClose.addEventListener('click', function (e) { e.stopPropagation(); close(); });
 
   // Keep the sticky tour bar showing which section is on screen.
   var tabs = [].slice.call(document.querySelectorAll('.tour-bar .tour-nav a'));
@@ -702,6 +753,26 @@
     }, { rootMargin: '0px 0px -8% 0px' });
     targets.forEach(function (el) { io.observe(el); });
   }
+
+  // Clipboard copy for SHA-256 and other checksums with visual feedback.
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.copy-btn');
+    if (!btn) return;
+    var text = btn.getAttribute('data-copy');
+    if (!text) return;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        var span = btn.querySelector('span');
+        var orig = span ? span.textContent : 'Copy';
+        btn.classList.add('copied');
+        if (span) span.textContent = 'Copied!';
+        setTimeout(function () {
+          btn.classList.remove('copied');
+          if (span) span.textContent = orig;
+        }, 2000);
+      });
+    }
+  });
 
   // Reading progress along the top. Skipped entirely when motion is reduced.
   if (!reduce) {
