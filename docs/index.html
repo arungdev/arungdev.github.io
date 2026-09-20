@@ -4,12 +4,12 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Documentation — arungdev</title>
-<meta name="description" content="Everything needed to get Bank Statement Analytics running and importing. Written against v1.0.0." />
+<meta name="description" content="Everything needed to get Bank Statement Analytics running and importing. Written against v2.0.0." />
 <link rel="canonical" href="https://arungdev.github.io/docs/" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://arungdev.github.io/docs/" />
 <meta property="og:title" content="Documentation — arungdev" />
-<meta property="og:description" content="Everything needed to get Bank Statement Analytics running and importing. Written against v1.0.0." />
+<meta property="og:description" content="Everything needed to get Bank Statement Analytics running and importing. Written against v2.0.0." />
 <meta property="og:image" content="https://arungdev.github.io/assets/og-home.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -55,7 +55,7 @@
   <div class="wrap">
     <p class="eyebrow">Documentation</p>
     <h1 class="display-2">Install it, feed it statements, read the results</h1>
-    <p class="lede" style="margin-top:1rem">Everything needed to get Bank Statement Analytics running and importing. Written against v1.0.0.</p>
+    <p class="lede" style="margin-top:1rem">Everything needed to get Bank Statement Analytics running and importing. Written against v2.0.0.</p>
   </div>
 </section>
 
@@ -71,10 +71,11 @@
         <a href="#upload">Upload it</a>
         <a href="#auto-import">Import without lifting a finger</a>
         <a href="#categorize">Review and categorize</a>
-        <a href="#planning">Budgets, bills and deposits</a>
+        <a href="#trends">Trends and Insights</a>
+        <a href="#budgets">Budgets and Bills</a>
+        <a href="#investments">Investments</a>
         <a href="#reports">Reports</a>
-        <a href="#privacy">Privacy controls</a>
-        <a href="#data">Where your data lives</a>
+        <a href="#data">Your data and backups</a>
         <a href="#service">The Windows service</a>
         <a href="#uninstall">Uninstall</a>
       </nav>
@@ -142,7 +143,7 @@
         <p>Open the Upload page, pick the account, and drop the file in. The page shows which formats the selected bank accepts, and links to the same export steps listed above.</p>
         <ul>
           <li>Password-protected PDFs work — you are prompted for the password.</li>
-          <li>Duplicates are skipped automatically, so re-uploading an overlapping date range is safe.</li>
+          <li>Duplicates are skipped automatically, so re-uploading an overlapping range is safe.</li>
           <li>Every import is listed in Upload History with the number of transactions it added.</li>
           <li>Revert removes that import completely — its transactions and the stored file.</li>
         </ul>
@@ -164,40 +165,34 @@
         <h2>Review and categorize</h2>
         <p>Imported transactions are categorized automatically by merchant. The counterparty is resolved out of the raw UPI string or narration, and each merchant carries a default category.</p>
         <ul>
-          <li>Transactions — filter by date, re-categorize, add tags and notes.</li>
-          <li>Merchants — rename, merge duplicates, bulk-categorize, set default categories.</li>
-          <li>A category set on a single transaction always wins over the merchant default.</li>
+          <li>Changing a merchant's category recategorizes all its transactions at once.</li>
+          <li>Individual transactions can have their category overridden if one purchase was unusual.</li>
+          <li>Split transactions let you divide a single payment across multiple categories.</li>
         </ul>
-        <h3>Transfers</h3>
-        <p>When a debit in one of your accounts matches an equal credit in another within a few days, the app proposes it as a transfer. Confirming the pair removes both sides from income and spending — you moved your own money, you did not earn or spend it. This is what keeps the totals meaningful once you hold more than one account.</p>
       </section>
 
-      <section id="planning">
-        <h2>Budgets, bills and deposits</h2>
-        <ul>
-          <li>Budgets — a monthly limit per category. Set once, applied to every month, measured against real spend in whichever month you select.</li>
-          <li>Bills — recurring bills with due dates and reminders, including credit-card bills. Opt in to desktop notifications under Settings → Reminders.</li>
-          <li>Investments — recurring and fixed deposits picked out of the statement narration, with contributions paid so far and maturity dates.</li>
-        </ul>
+      <section id="trends">
+        <h2>Trends and Insights</h2>
+        <p>Trends shows monthly income versus spend over time, category breakdowns and savings rates. Insights flags recurring subscriptions, unusual spikes and merchant concentration.</p>
+      </section>
+
+      <section id="budgets">
+        <h2>Budgets and Bills</h2>
+        <p>Set monthly category budgets with visual progress bars. Track upcoming bill reminders and recurring payments so nothing is missed.</p>
+      </section>
+
+      <section id="investments">
+        <h2>Investments</h2>
+        <p>Detected recurring and fixed deposits appear automatically, with maturity dates and projected interest alongside manual asset entries.</p>
       </section>
 
       <section id="reports">
         <h2>Reports</h2>
-        <p>Reports closes off a month or a year: opening and closing balance, spend by category, top merchants, and deposits. Download PDF exports the same report as a document.</p>
-        <p>For a credit card the report is anchored to the billing cycle rather than the calendar month, because that is the period the card actually settles on.</p>
-      </section>
-
-      <section id="privacy">
-        <h2>Privacy controls</h2>
-        <ul>
-          <li>The eye button in the header masks every amount on screen, and counterparty names too if you want — useful when sharing a screen.</li>
-          <li>Appearance offers light, dark or follow-your-device, plus a text size setting.</li>
-          <li>Additional users can be created, each with their own login.</li>
-        </ul>
+        <p>Monthly and annual statements summarize opening and closing balance, net savings and top expense drivers, printable or exportable as a PDF.</p>
       </section>
 
       <section id="data">
-        <h2>Where your data lives</h2>
+        <h2>Your data and backups</h2>
         <p>Everything the app stores sits in a Data folder next to the installed executable — the PostgreSQL database it runs embedded, your uploaded statement files, and the encryption keys for the login cookie. Nothing is written to a cloud service and nothing is transmitted anywhere.</p>
         <h3>Backing up</h3>
         <ol class="steps">

@@ -6,7 +6,7 @@ const DOCS = {
   slug: 'docs',
   eyebrow: 'Documentation',
   title: 'Install it, feed it statements, read the results',
-  lede: 'Everything needed to get Bank Statement Analytics running and importing. Written against v1.0.0.',
+  lede: 'Everything needed to get Bank Statement Analytics running and importing. Written against v2.0.0.',
   sections: [
     {
       id: 'install', heading: 'Install',
@@ -75,7 +75,7 @@ const DOCS = {
         { p: 'Open the Upload page, pick the account, and drop the file in. The page shows which formats the selected bank accepts, and links to the same export steps listed above.' },
         { list: [
           'Password-protected PDFs work — you are prompted for the password.',
-          'Duplicates are skipped automatically, so re-uploading an overlapping date range is safe.',
+          'Duplicates are skipped automatically, so re-uploading an overlapping range is safe.',
           'Every import is listed in Upload History with the number of transactions it added.',
           'Revert removes that import completely — its transactions and the stored file.',
         ] },
@@ -99,43 +99,38 @@ const DOCS = {
       blocks: [
         { p: 'Imported transactions are categorized automatically by merchant. The counterparty is resolved out of the raw UPI string or narration, and each merchant carries a default category.' },
         { list: [
-          'Transactions — filter by date, re-categorize, add tags and notes.',
-          'Merchants — rename, merge duplicates, bulk-categorize, set default categories.',
-          'A category set on a single transaction always wins over the merchant default.',
+          'Changing a merchant\'s category recategorizes all its transactions at once.',
+          'Individual transactions can have their category overridden if one purchase was unusual.',
+          'Split transactions let you divide a single payment across multiple categories.',
         ] },
-        { h3: 'Transfers' },
-        { p: 'When a debit in one of your accounts matches an equal credit in another within a few days, the app proposes it as a transfer. Confirming the pair removes both sides from income and spending — you moved your own money, you did not earn or spend it. This is what keeps the totals meaningful once you hold more than one account.' },
       ],
     },
     {
-      id: 'planning', heading: 'Budgets, bills and deposits',
+      id: 'trends', heading: 'Trends and Insights',
       blocks: [
-        { list: [
-          'Budgets — a monthly limit per category. Set once, applied to every month, measured against real spend in whichever month you select.',
-          'Bills — recurring bills with due dates and reminders, including credit-card bills. Opt in to desktop notifications under Settings → Reminders.',
-          'Investments — recurring and fixed deposits picked out of the statement narration, with contributions paid so far and maturity dates.',
-        ] },
+        { p: 'Trends shows monthly income versus spend over time, category breakdowns and savings rates. Insights flags recurring subscriptions, unusual spikes and merchant concentration.' },
+      ],
+    },
+    {
+      id: 'budgets', heading: 'Budgets and Bills',
+      blocks: [
+        { p: 'Set monthly category budgets with visual progress bars. Track upcoming bill reminders and recurring payments so nothing is missed.' },
+      ],
+    },
+    {
+      id: 'investments', heading: 'Investments',
+      blocks: [
+        { p: 'Detected recurring and fixed deposits appear automatically, with maturity dates and projected interest alongside manual asset entries.' },
       ],
     },
     {
       id: 'reports', heading: 'Reports',
       blocks: [
-        { p: 'Reports closes off a month or a year: opening and closing balance, spend by category, top merchants, and deposits. Download PDF exports the same report as a document.' },
-        { p: 'For a credit card the report is anchored to the billing cycle rather than the calendar month, because that is the period the card actually settles on.' },
+        { p: 'Monthly and annual statements summarize opening and closing balance, net savings and top expense drivers, printable or exportable as a PDF.' },
       ],
     },
     {
-      id: 'privacy', heading: 'Privacy controls',
-      blocks: [
-        { list: [
-          'The eye button in the header masks every amount on screen, and counterparty names too if you want — useful when sharing a screen.',
-          'Appearance offers light, dark or follow-your-device, plus a text size setting.',
-          'Additional users can be created, each with their own login.',
-        ] },
-      ],
-    },
-    {
-      id: 'data', heading: 'Where your data lives',
+      id: 'data', heading: 'Your data and backups',
       blocks: [
         { p: 'Everything the app stores sits in a Data folder next to the installed executable — the PostgreSQL database it runs embedded, your uploaded statement files, and the encryption keys for the login cookie. Nothing is written to a cloud service and nothing is transmitted anywhere.' },
         { h3: 'Backing up' },
@@ -171,8 +166,34 @@ const CHANGELOG = {
   lede: 'Every release of Bank Statement Analytics. Downloads live on the GitHub releases page.',
   releases: [
     {
-      version: '1.0.0',
+      version: '2.0.0',
       status: 'Current',
+      title: 'Global Search, Forex Tracking, Financial Planning & Heatmaps',
+      summary: 'Major release introducing keyboard-driven global search, multi-currency transaction tracking, annual financial trajectory, spending intensity heatmap, financial planning runway and emergency fund tools, and automated database migrations.',
+      groups: [
+        ['Discovery & Search', [
+          'Global search overlay triggered with / shortcut to search across transactions, merchants, accounts, notes, and categories instantly.',
+          'Interactive column header dropdowns on Transactions and Merchants pages for multi-column sorting and filtering.',
+          'Refined table selection states and high-contrast checkboxes in light and dark themes.',
+        ]],
+        ['Advanced Analytics & Planning', [
+          'Forex & international transaction detection with multi-currency badges and fee estimates.',
+          'Annual financial summary tracking net worth trajectory, annual cash flow, and YoY category shifts.',
+          'Daily spending heatmap displaying spending concentration and peak expenditure dates.',
+          'Financial planning tools: burn rate calculator, runway projections, emergency fund targets, and retirement forecasts.',
+        ]],
+        ['Credit Cards & Reliability', [
+          'Accurate shared credit limit calculations and negative balance prevention across card accounts.',
+          'Preserved unsaved draft edits in the Settings credit card modal.',
+          'Fixed billing-month cycle boundaries and drill-down date ranges in Trends.',
+          'Instant branded splash animation on application start.',
+          'Automated versioned schema evolution via the new database migration engine.',
+        ]],
+      ],
+    },
+    {
+      version: '1.0.0',
+      status: 'Previous',
       title: 'First release',
       summary: 'The initial public build: statement import for three banks, categorization, and the full set of dashboard, planning and reporting screens.',
       groups: [

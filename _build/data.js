@@ -21,14 +21,14 @@ const PRODUCTS = [
     summary:
       "Parses HDFC, HDFC Credit Card and IOB statement exports — .txt, .csv and .pdf — into a categorized transaction store, then serves trends, budgets, bills, investments and monthly reports on top of it.",
     status: "shipped",
-    version: "1.0.0",
+    version: "2.0.0",
     platform: "Windows 10/11 · 64-bit",
     repo: `${GH_USER}/BankStatementAnalytics`,
     releases: `${GH_USER}/BankStatementAnalytics/releases/latest`,
     // Where release assets live. Asset names carry the version, so bump
     // `version` and these together. Names, sizes and checksums below are the
     // ones GitHub reports for the published release - do not hand-edit them.
-    assetBase: `${GH_USER}/BankStatementAnalytics/releases/download/v1.0.0`,
+    assetBase: `${GH_USER}/BankStatementAnalytics/releases/download/v2.0.0`,
     cover: "01-overview",
     accent: "#4F46E5",
 
@@ -97,10 +97,42 @@ const PRODUCTS = [
     // Release history with multi-version support. First entry is treated as the latest.
     versions: [
       {
-        version: "1.0.0",
-        date: "2026-08-02",
+        version: "2.0.0",
+        date: "2026-09-20",
         status: "Latest",
         isLatest: true,
+        notesUrl: `${GH_USER}/BankStatementAnalytics/releases/tag/v2.0.0`,
+        assetBase: `${GH_USER}/BankStatementAnalytics/releases/download/v2.0.0`,
+        summary:
+          "Major feature release: global search modal (/), forex and international transaction tracking, annual financial summary, spending heatmap, burn rate and runway planning tools, enhanced table filters, and automated database migrations.",
+        downloads: [
+          {
+            kind: "primary",
+            label: "Download for Windows",
+            sub: "Installer · v2.0.0 · 64-bit",
+            file: "BankStatementAnalytics-Setup-2.0.0.exe",
+            size: "66.2 MB",
+            sha256:
+              "a5a404a1932938483887ebab629a1cd32cf01d920a14daf1fdf740fac408ed1d",
+            note: "Installs to Program Files and registers a background service, so the app is running whenever your PC is. Opens at localhost:5080 from the desktop shortcut. Needs administrator rights to install.",
+          },
+          {
+            kind: "secondary",
+            label: "Portable build",
+            sub: "ZIP · v2.0.0 · no installer",
+            file: "BankStatementAnalytics-Portable-2.0.0.zip",
+            size: "100.7 MB",
+            sha256:
+              "c3c9b83bb7ea283126d47f331a84edfbbf5db4fcbf9f7168db45891d1e50dc3e",
+            note: "Unzip and run the executable directly. Nothing is written outside the folder you extract it to. No service is registered, so the app runs only while the window is open.",
+          },
+        ],
+      },
+      {
+        version: "1.0.0",
+        date: "2026-08-02",
+        status: "Archived",
+        isLatest: false,
         notesUrl: `${GH_USER}/BankStatementAnalytics/releases/tag/v1.0.0`,
         assetBase: `${GH_USER}/BankStatementAnalytics/releases/download/v1.0.0`,
         summary:
