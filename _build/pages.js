@@ -6,7 +6,7 @@ const DOCS = {
   slug: 'docs',
   eyebrow: 'Documentation',
   title: 'Install it, feed it statements, read the results',
-  lede: 'Everything needed to get Bank Statement Analytics running and importing. Written against v2.0.0.',
+  lede: 'Everything needed to get Bank Statement Analytics running and importing. Written against v3.0.0.',
   sections: [
     {
       id: 'install', heading: 'Install',
@@ -166,8 +166,44 @@ const CHANGELOG = {
   lede: 'Every release of Bank Statement Analytics. Downloads live on the GitHub releases page.',
   releases: [
     {
-      version: '2.0.0',
+      version: '3.0.0',
       status: 'Current',
+      title: 'Bill Splits, Google Pay Takeout Integration & Mobile Redesign',
+      summary: 'Major release introducing bill splits and group expense management, multi-profile Google Pay activity import with automatic bank statement matching, comprehensive mobile and tablet responsive redesign, custom TagPicker popovers, categorized settings, and local network sharing controls.',
+      groups: [
+        ['Bill Splits & Group Expenses', [
+          'Dedicated Splits page for managing shared bills, roommates, group outings, and recurring joint expenses.',
+          'Bill groups and member tracking with participant VPAs, assigned amounts, and settlement status.',
+          'Split any single transaction across categories or participants from the transaction drawer or split modal.',
+          'Separation of personal shares from participant reimbursements across Overview, Trends, and Reports to prevent double-counting.',
+        ]],
+        ['Google Pay & Statement Matching', [
+          'Import Google Pay Takeout activity archives (.zip/.json) with multi-profile isolation.',
+          'Automated bank matching engine linking transactions by amount, direction, account suffix, and value-date evidence.',
+          'Midnight and next-day value-date resolution for late-night payments.',
+          'Payee name truncation handling and learned alias memory for shortened bank statement descriptions.',
+          'Conflict and competition detection warnings for duplicate or same-day amounts.',
+        ]],
+        ['Mobile & Responsive Redesign', [
+          'Off-canvas slide-out drawer navigation on mobile and tablet screens (≤ 1024px) with backdrop dismissal.',
+          'Adaptive header with hamburger menu toggle and direct Settings gear shortcut.',
+          'Responsive date range picker with single-month view and horizontally scrollable presets on narrow screens.',
+          'Compact 2x2 KPI stat card grid across Overview, Trends, Insights, and Reports.',
+          'Responsive card rows and touch-friendly table scrolling wrappers for mobile transaction lists.',
+        ]],
+        ['Tags, Settings & Network Controls', [
+          'Full tag CRUD management, custom colors, and recently used tags in Settings.',
+          'Interactive TagPicker popover replacing datalists with instant search and inline tag creation.',
+          'Categorized settings rail organized into Finance & Data, Preferences, System & Security, and Help & Support.',
+          'Quick Jump search modal (Ctrl+K) indexing all settings tabs.',
+          'Local network (LAN) access controls to permit secure browsing from other phones or PCs on the home network.',
+          'In-app update engine with detached upgrade runner.',
+        ]],
+      ],
+    },
+    {
+      version: '2.0.0',
+      status: 'Previous',
       title: 'Global Search, Forex Tracking, Financial Planning & Heatmaps',
       summary: 'Major release introducing keyboard-driven global search, multi-currency transaction tracking, annual financial trajectory, spending intensity heatmap, financial planning runway and emergency fund tools, and automated database migrations.',
       groups: [

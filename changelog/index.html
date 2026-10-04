@@ -63,8 +63,62 @@
   <div class="wrap-narrow">
       <article class="release" data-reveal>
         <div class="release-head">
-          <span class="release-ver">v2.0.0</span>
+          <span class="release-ver">v3.0.0</span>
           <span class="badge">Current</span>
+        </div>
+        <h2>Bill Splits, Google Pay Takeout Integration &amp; Mobile Redesign</h2>
+        <p class="lede" style="margin-top:.85rem">Major release introducing bill splits and group expense management, multi-profile Google Pay activity import with automatic bank statement matching, comprehensive mobile and tablet responsive redesign, custom TagPicker popovers, categorized settings, and local network sharing controls.</p>
+        <div class="release-group">
+          <h3>Bill Splits &amp; Group Expenses</h3>
+          <ul>
+            <li>Dedicated Splits page for managing shared bills, roommates, group outings, and recurring joint expenses.</li>
+            <li>Bill groups and member tracking with participant VPAs, assigned amounts, and settlement status.</li>
+            <li>Split any single transaction across categories or participants from the transaction drawer or split modal.</li>
+            <li>Separation of personal shares from participant reimbursements across Overview, Trends, and Reports to prevent double-counting.</li>
+          </ul>
+        </div>
+        <div class="release-group">
+          <h3>Google Pay &amp; Statement Matching</h3>
+          <ul>
+            <li>Import Google Pay Takeout activity archives (.zip/.json) with multi-profile isolation.</li>
+            <li>Automated bank matching engine linking transactions by amount, direction, account suffix, and value-date evidence.</li>
+            <li>Midnight and next-day value-date resolution for late-night payments.</li>
+            <li>Payee name truncation handling and learned alias memory for shortened bank statement descriptions.</li>
+            <li>Conflict and competition detection warnings for duplicate or same-day amounts.</li>
+          </ul>
+        </div>
+        <div class="release-group">
+          <h3>Mobile &amp; Responsive Redesign</h3>
+          <ul>
+            <li>Off-canvas slide-out drawer navigation on mobile and tablet screens (≤ 1024px) with backdrop dismissal.</li>
+            <li>Adaptive header with hamburger menu toggle and direct Settings gear shortcut.</li>
+            <li>Responsive date range picker with single-month view and horizontally scrollable presets on narrow screens.</li>
+            <li>Compact 2x2 KPI stat card grid across Overview, Trends, Insights, and Reports.</li>
+            <li>Responsive card rows and touch-friendly table scrolling wrappers for mobile transaction lists.</li>
+          </ul>
+        </div>
+        <div class="release-group">
+          <h3>Tags, Settings &amp; Network Controls</h3>
+          <ul>
+            <li>Full tag CRUD management, custom colors, and recently used tags in Settings.</li>
+            <li>Interactive TagPicker popover replacing datalists with instant search and inline tag creation.</li>
+            <li>Categorized settings rail organized into Finance &amp; Data, Preferences, System &amp; Security, and Help &amp; Support.</li>
+            <li>Quick Jump search modal (Ctrl+K) indexing all settings tabs.</li>
+            <li>Local network (LAN) access controls to permit secure browsing from other phones or PCs on the home network.</li>
+            <li>In-app update engine with detached upgrade runner.</li>
+          </ul>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.75rem">
+          <a class="btn btn-primary" href="https://github.com/arungdev/BankStatementAnalytics/releases/download/v3.0.0/BankStatementAnalytics-Setup-3.0.0.exe" download target="_self"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1a1 1 0 0 1 1 1v6.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.42L7 8.59V2a1 1 0 0 1 1-1Zm-6 11a1 1 0 0 1 1 1v1h10v-1a1 1 0 1 1 2 0v1.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 14.5V13a1 1 0 0 1 1-1Z"/></svg>Download Setup (v3.0.0)</a>
+          <a class="btn btn-ghost" href="https://github.com/arungdev/BankStatementAnalytics/releases/download/v3.0.0/BankStatementAnalytics-Portable-3.0.0.zip" download target="_self"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1a1 1 0 0 1 1 1v6.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.42L7 8.59V2a1 1 0 0 1 1-1Zm-6 11a1 1 0 0 1 1 1v1h10v-1a1 1 0 1 1 2 0v1.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 14.5V13a1 1 0 0 1 1-1Z"/></svg>Portable (.zip)</a>
+          <a class="btn btn-ghost" href="https://github.com/arungdev/BankStatementAnalytics/releases/tag/v3.0.0" target="_blank" rel="noopener noreferrer">Release notes</a>
+        </div>
+      </article>
+
+      <article class="release" data-reveal>
+        <div class="release-head">
+          <span class="release-ver">v2.0.0</span>
+          <span class="badge">Previous</span>
         </div>
         <h2>Global Search, Forex Tracking, Financial Planning &amp; Heatmaps</h2>
         <p class="lede" style="margin-top:.85rem">Major release introducing keyboard-driven global search, multi-currency transaction tracking, annual financial trajectory, spending intensity heatmap, financial planning runway and emergency fund tools, and automated database migrations.</p>
