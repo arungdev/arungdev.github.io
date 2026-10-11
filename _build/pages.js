@@ -150,6 +150,21 @@ const DOCS = {
       ],
     },
     {
+      id: 'updates', heading: 'Software updates',
+      blocks: [
+        { p: 'The app checks for new releases automatically in the background once a day. When a new version is available, a subtle update badge appears on Settings in the sidebar.' },
+        { p: 'Open Settings → Updates to inspect what is new, read the release changelog, and upgrade the application in one click.' },
+        { list: [
+          'Check now queries GitHub Releases immediately for the latest published build.',
+          'Download update fetches the Windows installer in the background with a real-time progress bar.',
+          'Install & Restart launches the installer in a detached process: it stops the background Windows service, replaces the program files, applies any pending database migrations, and restarts the service automatically.',
+          'All your existing transactions, accounts, categories, and uploads in the Data folder are completely preserved across updates.',
+          'A direct download button is also available if you prefer to save the installer .exe and run it manually.',
+        ] },
+        { callout: ['Portable builds', 'For portable installations, download the latest .zip archive from the Releases page or the site download archive, extract the files over your existing portable directory, and start the executable. Your Data folder remains intact.'] },
+      ],
+    },
+    {
       id: 'uninstall', heading: 'Uninstall',
       blocks: [
         { p: 'Uninstall from Settings → Apps → Installed apps, as usual. The uninstaller stops and removes the service first.' },

@@ -77,6 +77,7 @@
         <a href="#reports">Reports</a>
         <a href="#data">Your data and backups</a>
         <a href="#service">The Windows service</a>
+        <a href="#updates">Software updates</a>
         <a href="#uninstall">Uninstall</a>
       </nav>
     </aside>
@@ -207,6 +208,20 @@
         <h2>The Windows service</h2>
         <p>The installer registers the app as a service so it is running whenever the PC is, without anyone signing in. It runs under the LocalService account rather than as an administrator — the embedded PostgreSQL refuses to run elevated, so this is deliberate.</p>
         <p>Manage it like any other service: open services.msc and look for Bank Statement Analytics, or use sc stop / sc start from an administrator prompt.</p>
+      </section>
+
+      <section id="updates">
+        <h2>Software updates</h2>
+        <p>The app checks for new releases automatically in the background once a day. When a new version is available, a subtle update badge appears on Settings in the sidebar.</p>
+        <p>Open Settings → Updates to inspect what is new, read the release changelog, and upgrade the application in one click.</p>
+        <ul>
+          <li>Check now queries GitHub Releases immediately for the latest published build.</li>
+          <li>Download update fetches the Windows installer in the background with a real-time progress bar.</li>
+          <li>Install &amp; Restart launches the installer in a detached process: it stops the background Windows service, replaces the program files, applies any pending database migrations, and restarts the service automatically.</li>
+          <li>All your existing transactions, accounts, categories, and uploads in the Data folder are completely preserved across updates.</li>
+          <li>A direct download button is also available if you prefer to save the installer .exe and run it manually.</li>
+        </ul>
+        <div class="callout"><strong>Portable builds</strong><p>For portable installations, download the latest .zip archive from the Releases page or the site download archive, extract the files over your existing portable directory, and start the executable. Your Data folder remains intact.</p></div>
       </section>
 
       <section id="uninstall">

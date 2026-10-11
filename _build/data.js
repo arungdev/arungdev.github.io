@@ -353,7 +353,7 @@ const PRODUCTS = [
           [
             "12-settings",
             "Settings",
-            "Linked accounts with live balances, category management, reminder and privacy preferences, appearance and profile.",
+            "Linked accounts with live balances, category management, reminder and privacy preferences, appearance, local network access and software updates.",
           ],
           [
             "00b-onboarding",
