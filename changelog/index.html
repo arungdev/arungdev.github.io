@@ -63,8 +63,49 @@
   <div class="wrap-narrow">
       <article class="release" data-reveal>
         <div class="release-head">
-          <span class="release-ver">v3.0.0</span>
+          <span class="release-ver">v3.1.0</span>
           <span class="badge">Current</span>
+        </div>
+        <h2>Import Reliability, Data Protection &amp; Performance Optimizations</h2>
+        <p class="lede" style="margin-top:.85rem">Reliability and hardening release introducing account-scoped duplicate statement detection, atomic persistence, encrypted PDF password storage via ASP.NET Data Protection, import discrepancy warnings, scoped global search navigation fixes, and frontend pagination and request handling optimizations.</p>
+        <div class="release-group">
+          <h3>Import Reliability &amp; Security</h3>
+          <ul>
+            <li>Account-scoped statement duplicate detection and atomic persistence, preserving user notes, tags, categories, and upload ownership across overlapping files.</li>
+            <li>Interrupted import recovery and automatic temporary upload cleanup.</li>
+            <li>Statement import review warnings for balance continuity discrepancies and unrecognized merchants.</li>
+            <li>Saved statement PDF passwords encrypted at rest using ASP.NET Core Data Protection, with automatic migration of legacy passwords.</li>
+            <li>Serialized import queue preventing database lock contention between manual uploads and background watch-folder sweeps.</li>
+          </ul>
+        </div>
+        <div class="release-group">
+          <h3>Search &amp; Navigation</h3>
+          <ul>
+            <li>Global search (Ctrl+K) and anomaly drill-down navigation properly initializes account scope and active search criteria.</li>
+            <li>Search query autocomplete honors request cancellation and avoids race conditions.</li>
+            <li>Suppression of overlapping background polling requests during import failures.</li>
+          </ul>
+        </div>
+        <div class="release-group">
+          <h3>Performance &amp; Usability</h3>
+          <ul>
+            <li>Paginated Google Pay activity tables and spending insights for rapid initial page loads.</li>
+            <li>Batched multi-account summary queries reducing database roundtrips.</li>
+            <li>Deferred dialog and settings panel evaluation to optimize bundle performance.</li>
+            <li>Improved account action buttons and Google Pay profile configuration layout.</li>
+          </ul>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.75rem">
+          <a class="btn btn-primary" href="https://github.com/arungdev/BankStatementAnalytics/releases/download/v3.1.0/BankStatementAnalytics-Setup-3.1.0.exe" download target="_self"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1a1 1 0 0 1 1 1v6.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.42L7 8.59V2a1 1 0 0 1 1-1Zm-6 11a1 1 0 0 1 1 1v1h10v-1a1 1 0 1 1 2 0v1.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 14.5V13a1 1 0 0 1 1-1Z"/></svg>Download Setup (v3.1.0)</a>
+          <a class="btn btn-ghost" href="https://github.com/arungdev/BankStatementAnalytics/releases/download/v3.1.0/BankStatementAnalytics-Portable-3.1.0.zip" download target="_self"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1a1 1 0 0 1 1 1v6.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.42L7 8.59V2a1 1 0 0 1 1-1Zm-6 11a1 1 0 0 1 1 1v1h10v-1a1 1 0 1 1 2 0v1.5a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 1 14.5V13a1 1 0 0 1 1-1Z"/></svg>Portable (.zip)</a>
+          <a class="btn btn-ghost" href="https://github.com/arungdev/BankStatementAnalytics/releases/tag/v3.1.0" target="_blank" rel="noopener noreferrer">Release notes</a>
+        </div>
+      </article>
+
+      <article class="release" data-reveal>
+        <div class="release-head">
+          <span class="release-ver">v3.0.0</span>
+          <span class="badge">Previous</span>
         </div>
         <h2>Bill Splits, Google Pay Takeout Integration &amp; Mobile Redesign</h2>
         <p class="lede" style="margin-top:.85rem">Major release introducing bill splits and group expense management, multi-profile Google Pay activity import with automatic bank statement matching, comprehensive mobile and tablet responsive redesign, custom TagPicker popovers, categorized settings, and local network sharing controls.</p>

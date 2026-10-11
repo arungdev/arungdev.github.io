@@ -6,7 +6,7 @@ const DOCS = {
   slug: 'docs',
   eyebrow: 'Documentation',
   title: 'Install it, feed it statements, read the results',
-  lede: 'Everything needed to get Bank Statement Analytics running and importing. Written against v3.0.0.',
+  lede: 'Everything needed to get Bank Statement Analytics running and importing. Written against v3.1.0.',
   sections: [
     {
       id: 'install', heading: 'Install',
@@ -166,8 +166,34 @@ const CHANGELOG = {
   lede: 'Every release of Bank Statement Analytics. Downloads live on the GitHub releases page.',
   releases: [
     {
-      version: '3.0.0',
+      version: '3.1.0',
       status: 'Current',
+      title: 'Import Reliability, Data Protection & Performance Optimizations',
+      summary: 'Reliability and hardening release introducing account-scoped duplicate statement detection, atomic persistence, encrypted PDF password storage via ASP.NET Data Protection, import discrepancy warnings, scoped global search navigation fixes, and frontend pagination and request handling optimizations.',
+      groups: [
+        ['Import Reliability & Security', [
+          'Account-scoped statement duplicate detection and atomic persistence, preserving user notes, tags, categories, and upload ownership across overlapping files.',
+          'Interrupted import recovery and automatic temporary upload cleanup.',
+          'Statement import review warnings for balance continuity discrepancies and unrecognized merchants.',
+          'Saved statement PDF passwords encrypted at rest using ASP.NET Core Data Protection, with automatic migration of legacy passwords.',
+          'Serialized import queue preventing database lock contention between manual uploads and background watch-folder sweeps.',
+        ]],
+        ['Search & Navigation', [
+          'Global search (Ctrl+K) and anomaly drill-down navigation properly initializes account scope and active search criteria.',
+          'Search query autocomplete honors request cancellation and avoids race conditions.',
+          'Suppression of overlapping background polling requests during import failures.',
+        ]],
+        ['Performance & Usability', [
+          'Paginated Google Pay activity tables and spending insights for rapid initial page loads.',
+          'Batched multi-account summary queries reducing database roundtrips.',
+          'Deferred dialog and settings panel evaluation to optimize bundle performance.',
+          'Improved account action buttons and Google Pay profile configuration layout.',
+        ]],
+      ],
+    },
+    {
+      version: '3.0.0',
+      status: 'Previous',
       title: 'Bill Splits, Google Pay Takeout Integration & Mobile Redesign',
       summary: 'Major release introducing bill splits and group expense management, multi-profile Google Pay activity import with automatic bank statement matching, comprehensive mobile and tablet responsive redesign, custom TagPicker popovers, categorized settings, and local network sharing controls.',
       groups: [
