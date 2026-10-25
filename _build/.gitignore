@@ -1,1 +1,5 @@
 node_modules/
+.demo-runtime/
+demo-capture/*.txt
+demo-capture/*.csv
+demo-capture/captures/

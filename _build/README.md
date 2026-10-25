@@ -6,6 +6,9 @@ generated pages**, or your changes are lost on the next build.
 
 ## Building
 
+Images are real app screenshots from an isolated portable instance containing
+only fictional data. See `demo-capture/README.md`. Never capture personal data.
+
 ```bash
 cd _build
 npm install

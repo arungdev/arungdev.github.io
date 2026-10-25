@@ -30,6 +30,7 @@ const PRODUCTS = [
     // ones GitHub reports for the published release - do not hand-edit them.
     assetBase: `${GH_USER}/BankStatementAnalytics/releases/download/v3.1.0`,
     cover: "01-overview",
+    extraScreenshots: ["18-splits", "19-goals", "20-search"],
     accent: "#4F46E5",
 
     // The three-step story most product sites lead with, told once.

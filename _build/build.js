@@ -136,7 +136,8 @@ function siteHeader(depth, current) {
   return `<header class="site-head">
   <div class="wrap">
     <a class="brand" href="${up}index.html">${MARK}<span class="brand-name">${esc(OWNER.handle)}</span></a>
-    <nav class="site-nav" aria-label="Site">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" hidden>Menu <span aria-hidden="true">☰</span></button>
+    <nav class="site-nav" id="site-navigation" aria-label="Site">
       ${links}
       <a href="${GH_USER}">GitHub</a>
       <button class="theme-toggle" type="button" aria-label="Switch colour theme" title="Switch colour theme">
@@ -209,6 +210,21 @@ const REVEAL_JS = `
 
   // Theme: follow the system until the reader says otherwise, then remember.
   var root = document.documentElement;
+  var menu = document.querySelector('.menu-toggle');
+  var navigation = document.querySelector('.site-nav');
+  if (menu && navigation) {
+    menu.hidden = false;
+    head.classList.add('has-menu');
+    function closeMenu() { menu.setAttribute('aria-expanded', 'false'); }
+    menu.addEventListener('click', function () {
+      menu.setAttribute('aria-expanded', String(menu.getAttribute('aria-expanded') !== 'true'));
+    });
+    navigation.addEventListener('click', function (e) { if (e.target.closest('a')) closeMenu(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && menu.getAttribute('aria-expanded') === 'true') { closeMenu(); menu.focus(); }
+    });
+    window.matchMedia('(min-width: 761px)').addEventListener('change', closeMenu);
+  }
   var saved = null;
   try { saved = localStorage.getItem('theme'); } catch (e) {}
   if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);
@@ -938,6 +954,8 @@ ${REVEAL_JS}
     for (const sec of p.sections)
       for (const [slug] of sec.plates)
         fs.copyFileSync(path.join(SRC, slug + '.webp'), path.join(pass, slug + '.webp'));
+    for (const slug of p.extraScreenshots || [])
+      fs.copyFileSync(path.join(SRC, slug + '.webp'), path.join(pass, slug + '.webp'));
 
     // Social card: the product's cover screen inset on the brand navy field.
     const inset = await sharp(path.join(SRC, p.cover + '.webp'))

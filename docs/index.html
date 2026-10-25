@@ -37,7 +37,8 @@
       <path class="mark-glyph" d="M10 11.5 L14.8 16 L10 20.5"/>
       <path class="mark-glyph" d="M17.6 20.8 H23"/>
     </svg><span class="brand-name">arungdev</span></a>
-    <nav class="site-nav" aria-label="Site">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-navigation" hidden>Menu <span aria-hidden="true">☰</span></button>
+    <nav class="site-nav" id="site-navigation" aria-label="Site">
       <a href="../index.html#products">Products</a>
       <a href="../docs/index.html" aria-current="page">Docs</a>
       <a href="../changelog/index.html">Changelog</a>
@@ -297,6 +298,21 @@
 
   // Theme: follow the system until the reader says otherwise, then remember.
   var root = document.documentElement;
+  var menu = document.querySelector('.menu-toggle');
+  var navigation = document.querySelector('.site-nav');
+  if (menu && navigation) {
+    menu.hidden = false;
+    head.classList.add('has-menu');
+    function closeMenu() { menu.setAttribute('aria-expanded', 'false'); }
+    menu.addEventListener('click', function () {
+      menu.setAttribute('aria-expanded', String(menu.getAttribute('aria-expanded') !== 'true'));
+    });
+    navigation.addEventListener('click', function (e) { if (e.target.closest('a')) closeMenu(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && menu.getAttribute('aria-expanded') === 'true') { closeMenu(); menu.focus(); }
+    });
+    window.matchMedia('(min-width: 761px)').addEventListener('change', closeMenu);
+  }
   var saved = null;
   try { saved = localStorage.getItem('theme'); } catch (e) {}
   if (saved === 'light' || saved === 'dark') root.setAttribute('data-theme', saved);

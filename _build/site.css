@@ -269,6 +269,7 @@ h1, h2, h3, h4 {
   flex: none;
 }
 .site-nav { display: flex; align-items: center; gap: .35rem; }
+.menu-toggle { display: none; }
 .site-nav a {
   font-family: var(--mono);
   font-size: .7rem;
@@ -1692,4 +1693,61 @@ ol.steps li::before {
 }
 .release-group li:last-child {
   margin-bottom: 0;
+}
+
+/* Keep content within its column, including long release filenames. */
+.dl-card, .version-card, .version-dl-item, .version-dl-info,
+.trust-item > div, .foot-col { min-width: 0; }
+.dl-meta dd, .version-dl-size, .prose, .foot-col a { overflow-wrap: anywhere; }
+.version-dl-top { flex-wrap: wrap; }
+.site-nav a, .theme-toggle, .tour-nav a { min-height: 44px; }
+.site-nav a, .tour-nav a { display: inline-flex; align-items: center; }
+
+@media (max-width: 899px) {
+  .doc-toc { position: static; max-height: none; overflow: visible; }
+}
+
+@media (max-width: 760px) {
+  .site-head .wrap { position: relative; flex-wrap: wrap; }
+  .has-menu .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+    min-height: 44px;
+    padding: .5rem .85rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--r-sm);
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+    cursor: pointer;
+  }
+  .has-menu .site-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    inset-inline: var(--pad);
+    padding: .65rem;
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    background: var(--surface);
+    box-shadow: var(--shadow);
+    overflow: auto;
+    max-height: calc(100dvh - 84px);
+  }
+  .has-menu .menu-toggle[aria-expanded="true"] + .site-nav { display: grid; }
+  .has-menu .site-nav a { padding: .65rem .85rem; }
+  .has-menu .theme-toggle { justify-self: start; margin: .35rem .5rem; }
+  .site-head:not(.has-menu) .site-nav { flex: 1 0 100%; flex-wrap: wrap; overflow: visible; }
+  .version-dl-top { align-items: flex-start; flex-direction: column; }
+  .version-dl-top .btn { align-self: stretch; justify-content: center; }
+  .lightbox-hint { width: max-content; max-width: calc(100% - 2rem); text-align: center; letter-spacing: .04em; }
+}
+
+@media (max-width: 480px) {
+  .dl-card, .version-card { padding: 1.25rem; }
+  .dl-meta > div { flex-wrap: wrap; gap: .2rem .75rem; }
+  .dl-card .btn { align-self: stretch; justify-content: center; }
+  .lightbox-close { top: .75rem; right: .75rem; }
 }
